@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://bc5kjmktow5b1"]
+
+[ext_resource type="Script" uid="uid://cgrq288l44152" path="res://scripts/menu_button_manager.gd" id="1_l6cm7"]
+[ext_resource type="FontFile" uid="uid://blsxgssh42pox" path="res://assets/fonts/Rubik/static/Rubik-Bold.ttf" id="2_ekxnf"]
+
+[node name="Main Menu" type="Control" unique_id=1980797040]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button Manager" type="Control" parent="." unique_id=1987324388]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -584.0
+offset_top = -40.0
+offset_right = -248.0
+offset_bottom = 457.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l6cm7")
+
+[node name="Start" type="Button" parent="Button Manager" unique_id=223479146]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -104.0
+offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 37
+text = "العب"
+
+[node name="Settings" type="Button" parent="Button Manager" unique_id=473738866]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 37
+text = "الاعدادات"
+
+[node name="Quit" type="Button" parent="Button Manager" unique_id=1246675080]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 47.25
+offset_bottom = 111.25
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 37
+text = "خروج"
+
+[connection signal="pressed" from="Button Manager/Start" to="Button Manager" method="_on_start_pressed"]
+[connection signal="pressed" from="Button Manager/Settings" to="Button Manager" method="_on_settings_pressed"]
+[connection signal="pressed" from="Button Manager/Quit" to="Button Manager" method="_on_quit_pressed"]
