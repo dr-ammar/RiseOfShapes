@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://r3815lspf2o7"]
+
+[ext_resource type="Texture2D" uid="uid://dkvbr7bl2unrw" path="res://assets/perks/Quick_Revive_Machine-removebg-preview.png" id="1_iui7m"]
+
+[sub_resource type="Animation" id="Animation_kncx7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_y51a5"]
+resource_name = "idle"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.1308996938995747, 0.08726646, 0.0, -0.08726646, -0.1308996938995747]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8abt2"]
+_data = {
+&"RESET": SubResource("Animation_kncx7"),
+&"idle": SubResource("Animation_y51a5")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kncx7"]
+size = Vector2(18, 28)
+
+[node name="Quick_Revive_Perk" type="StaticBody2D" unique_id=574400670]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=114185023]
+scale = Vector2(0.045679014, 0.04567901)
+texture = ExtResource("1_iui7m")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D" unique_id=105230593]
+libraries/ = SubResource("AnimationLibrary_8abt2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=243120474]
+shape = SubResource("RectangleShape2D_kncx7")

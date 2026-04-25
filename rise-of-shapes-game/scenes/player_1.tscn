@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://c5lfypq5to6hp"]
+
+[ext_resource type="Texture2D" uid="uid://iy605442fgne" path="res://sprites/player_jack/jack-foot.png.png" id="1_gneq0"]
+[ext_resource type="Script" uid="uid://dqh0a807df0f1" path="res://scenes/player.gd" id="1_vod78"]
+[ext_resource type="Texture2D" uid="uid://1wssm8tg1iyd" path="res://sprites/player_jack/jack-head.png.png" id="2_f7tsm"]
+[ext_resource type="AudioStream" uid="uid://d3yetfllmtrlw" path="res://audio/damage_sound.mp3" id="3_f7tsm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gneq0"]
+radius = 9.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gneq0"]
+radius = 9.0
+height = 24.0
+
+[node name="player1" type="CharacterBody2D" unique_id=502446332]
+script = ExtResource("1_vod78")
+
+[node name="characterSprite" type="Node2D" parent="." unique_id=1931759177]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="characterSprite" unique_id=859561706]
+
+[node name="right_foot" type="Sprite2D" parent="characterSprite" unique_id=1349141990]
+position = Vector2(8, 10)
+texture = ExtResource("1_gneq0")
+
+[node name="left_foot" type="Sprite2D" parent="characterSprite" unique_id=831016235]
+position = Vector2(-3, 10)
+texture = ExtResource("1_gneq0")
+
+[node name="Head" type="Sprite2D" parent="characterSprite" unique_id=18147563]
+position = Vector2(-0.5, 0)
+texture = ExtResource("2_f7tsm")
+
+[node name="MovementCollision" type="CollisionShape2D" parent="." unique_id=703132273]
+position = Vector2(0, 5)
+shape = SubResource("CircleShape2D_gneq0")
+
+[node name="hitbox" type="Area2D" parent="." unique_id=1098717675]
+
+[node name="DamageCollision" type="CollisionShape2D" parent="hitbox" unique_id=1878193473]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_gneq0")
+
+[node name="DamageSound" type="AudioStreamPlayer2D" parent="." unique_id=725741101]
+position = Vector2(0, 2)
+stream = ExtResource("3_f7tsm")
