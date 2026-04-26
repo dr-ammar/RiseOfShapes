@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c5lfypq5to6hp"]
 
 [ext_resource type="Texture2D" uid="uid://iy605442fgne" path="res://sprites/player_jack/jack-foot.png.png" id="1_gneq0"]
-[ext_resource type="Script" uid="uid://dqh0a807df0f1" path="res://scenes/player.gd" id="1_vod78"]
+[ext_resource type="Script" uid="uid://dqh0a807df0f1" path="res://scripts/player.gd" id="1_vod78"]
 [ext_resource type="Texture2D" uid="uid://1wssm8tg1iyd" path="res://sprites/player_jack/jack-head.png.png" id="2_f7tsm"]
 [ext_resource type="AudioStream" uid="uid://d3yetfllmtrlw" path="res://audio/damage_sound.mp3" id="3_f7tsm"]
 [ext_resource type="Texture2D" uid="uid://cwsoobub3oov2" path="res://assets/UI/Crosshair.png" id="5_wqd30"]
@@ -66,5 +66,5 @@ scale = Vector2(0.3, 0.3)
 texture = ExtResource("5_wqd30")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1508977859]
-zoom = Vector2(5, 5)
+zoom = Vector2(8, 8)
 position_smoothing_enabled = true
