@@ -1,7 +1,8 @@
 extends CharacterBody2D
 
 const SPEED = 100.0
-	
+
+var is_running := false
 
 func _physics_process(delta):
 	get_input()
@@ -11,9 +12,8 @@ func _physics_process(delta):
 
 func get_input():
 	# Keyboard inputs
-	if Global.gamepad_mode == false and Global.mobile_mode == false :
-		var input_dir = Input.get_vector("move_left","move_right","move_up","move_down")
-		velocity = input_dir.normalized() * SPEED
+	var input_dir = Input.get_vector("move_left","move_right","move_up","move_down")
+	velocity = input_dir.normalized() * SPEED
 		
 	if Input.is_action_pressed("move_left"):
 		$characterSprite/Head.flip_h = true
@@ -23,6 +23,11 @@ func get_input():
 		$characterSprite/Head.flip_h = false
 		$characterSprite/left_foot.flip_h = false
 		$characterSprite/right_foot.flip_h = false
+		
+	if input_dir == Vector2.ZERO:
+		$characterSprite/AnimationPlayer.play("idle")
+	else:
+		$characterSprite/AnimationPlayer.play("run")
 	
 	# Mouse and gamepad triggers Clicks
 	#if Input.get_action_strength("shoot") and map.player_deads == false and MobileMod == false:
@@ -38,3 +43,4 @@ func camera_movement():
 		var gamepad_mouse_pos = $gamepad_crosshair.crosshair.global_position
 		$Camera2D.offset.x = (gamepad_mouse_pos.x - global_position.x) / (160.0 / 2.0)
 		$Camera2D.offset.y = (gamepad_mouse_pos.y - global_position.y) / (90.0 / 2.0)
+		
