@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://lnrrf1j22jsu"]
+
+[ext_resource type="Texture2D" uid="uid://cosade21u8jsc" path="res://sprites/zombie/zombieSIDE-removebg-preview.png" id="1_1vlb3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_httt1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1vlb3")
+}],
+"loop": true,
+"name": &"walkingSide",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"walkingUpDown",
+"speed": 5.0
+}]
+
+[node name="zombie" type="CharacterBody2D" unique_id=2074171177]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=845111081]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1442369716]
+sprite_frames = SubResource("SpriteFrames_httt1")
+animation = &"walkingSide"

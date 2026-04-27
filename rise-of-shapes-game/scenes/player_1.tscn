@@ -242,12 +242,10 @@ position = Vector2(-0.5, 0)
 texture = ExtResource("2_f7tsm")
 
 [node name="MovementCollision" type="CollisionShape2D" parent="." unique_id=703132273]
-visible = false
 position = Vector2(0, 5)
 shape = SubResource("CircleShape2D_gneq0")
 
 [node name="hitbox" type="Area2D" parent="." unique_id=1098717675]
-visible = false
 
 [node name="DamageCollision" type="CollisionShape2D" parent="hitbox" unique_id=1878193473]
 position = Vector2(0, 2)
