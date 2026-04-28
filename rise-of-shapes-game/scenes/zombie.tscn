@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://lnrrf1j22jsu"]
+[gd_scene format=3 uid="uid://lnrrf1j22jsu"]
 
 [ext_resource type="Texture2D" uid="uid://curutcq1rrh1e" path="res://sprites/zombie/zombie-chasing_someone.png" id="1_1vlb3"]
 [ext_resource type="Script" uid="uid://cevd4khwhvwf4" path="res://scripts/zombie.gd" id="1_httt1"]
@@ -41,36 +41,36 @@ _data = {
 &"run_sideway": SubResource("Animation_httt1")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_zmb1"]
-radius = 8.0
-height = 24.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_httt1"]
+radius = 13.333333
+height = 49.333332
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hitbox"]
-radius = 10.0
-height = 28.0
+radius = 16.666664
+height = 100.0
 
 [node name="zombie" type="CharacterBody2D" unique_id=2074171177]
-scale = Vector2(0.65, 0.65)
+scale = Vector2(0.3, 0.3)
 script = ExtResource("1_httt1")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=845111081]
-position = Vector2(0, 2)
-shape = SubResource("CapsuleShape2D_zmb1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1945689687]
 root_node = NodePath("../Sprite2D")
 libraries/ = SubResource("AnimationLibrary_xepks")
-autoplay = "run_sideway"
+autoplay = &"run_sideway"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1051376306]
 texture = ExtResource("1_1vlb3")
 hframes = 5
 vframes = 5
 
-[node name="Hitbox" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=845111081]
 position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_httt1")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1315646047]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=131690947]
+position = Vector2(6.666668, 0)
 shape = SubResource("CapsuleShape2D_hitbox")
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
