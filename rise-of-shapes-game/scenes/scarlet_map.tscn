@@ -789,9 +789,9 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("5_8abt2")
 
 [node name="ZombieSpawner1" parent="." unique_id=973462366 instance=ExtResource("7_zmbspwnr")]
-position = Vector2(700, 450)
+position = Vector2(680, 696)
 
 [node name="ZombieSpawner2" parent="." unique_id=16226879 instance=ExtResource("7_zmbspwnr")]
-position = Vector2(400, 600)
+position = Vector2(395, 640)
 
 [connection signal="body_entered" from="wall_buys/Shotgun_wall" to="wall_buys/Shotgun_wall" method="_on_body_entered"]

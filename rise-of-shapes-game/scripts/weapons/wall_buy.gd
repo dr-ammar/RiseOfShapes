@@ -18,6 +18,17 @@ func interact(player):
 		print(weapon_name + " bought from the wall!")
 
 
+var players_in_range: Array = []
+
+func _process(_delta):
+	if Input.is_action_just_pressed("interact"):
+		for player in players_in_range:
+			interact(player)
+
 func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player") and Input.is_action_pressed("interact"):
-		interact(body)
+	if body.is_in_group("player"):
+		players_in_range.append(body)
+
+func _on_body_exited(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		players_in_range.erase(body)

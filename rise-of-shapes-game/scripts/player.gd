@@ -21,7 +21,7 @@ var points: int = 500:
 		points = value
 		points_changed.emit(points)
 
-var health: int = 100:
+var health: int = 50:
 	set(value):
 		health = value
 		health_changed.emit(health)
@@ -41,10 +41,34 @@ func _physics_process(delta):
 	move_and_slide()
 	
 func aim_weapon():
+	var target_pos
 	if Global.gamepad_mode == false and Global.mobile_mode == false:
-		weapon_holder.look_at(get_global_mouse_position())
+		target_pos = get_global_mouse_position()
 	elif Global.gamepad_mode == true and Global.mobile_mode == false:
-		weapon_holder.look_at($gamepad_crosshair.crosshair.global_position)
+		target_pos = $gamepad_crosshair.crosshair.global_position
+	else:
+		return
+		
+	# Determine facing direction
+	var looking_left = target_pos.x < global_position.x
+	
+	# Update weapon_holder position BEFORE look_at to avoid 1-frame rotation jitter
+	weapon_holder.position.x = -5 if looking_left else 5
+	
+	weapon_holder.look_at(target_pos)
+	
+	# Flip character sprites
+	$characterSprite/Head.flip_h = looking_left
+	$characterSprite/left_foot.flip_h = looking_left
+	$characterSprite/right_foot.flip_h = looking_left
+	
+	# Flip weapon vertically if looking left to prevent it being upside down
+	# We use wrapf to keep rotation in 0-360 range for easier comparison
+	var rot = wrapf(weapon_holder.rotation_degrees, 0, 360)
+	if rot > 90 and rot < 270:
+		weapon_holder.scale.y = -1
+	else:
+		weapon_holder.scale.y = 1
 		
 func take_damage(amount: int):
 	health -= amount
@@ -77,14 +101,7 @@ func _input(event):
 	var input_dir = Input.get_vector("move_left","move_right","move_up","move_down")
 	velocity = input_dir.normalized() * SPEED
 		
-	if event.is_action_pressed("move_left"):
-		$characterSprite/Head.flip_h = true
-		$characterSprite/left_foot.flip_h = true
-		$characterSprite/right_foot.flip_h = true
-	elif event.is_action_pressed("move_right"):
-		$characterSprite/Head.flip_h = false
-		$characterSprite/left_foot.flip_h = false
-		$characterSprite/right_foot.flip_h = false
+	# Character flipping is now handled in aim_weapon() based on mouse position
 		
 	if input_dir == Vector2.ZERO:
 		$characterSprite/AnimationPlayer.play("idle")
@@ -150,10 +167,16 @@ func pickup_weapon(weapon_packed_scene: PackedScene):
 	equip_weapon(weapons_inventory[current_weapon_index])
 
 func equip_weapon(weapon):
-	# هنا تضع منطق إظهار السلاح (مثلاً تفعيل الـ Sprite الخاص به)
-	# وتحديث خصائص الإطلاق (الضرر، سرعة الطلقة، إلخ)
-	print("السلاح الحالي في يد اللاعب: ", weapon)
-	weapon_switched.emit(weapon)
+	# Hide all weapons in inventory first
+	for w in weapons_inventory:
+		if is_instance_valid(w):
+			w.hide()
+			
+	# Show the selected weapon
+	if is_instance_valid(weapon):
+		weapon.show()
+		print("السلاح الحالي في يد اللاعب: ", weapon.weapon_name if "weapon_name" in weapon else weapon)
+		weapon_switched.emit(weapon)
 
 func drop_or_remove_weapon(weapon):
 	# هنا تقوم بحذف السلاح القديم أو رميه على الأرض

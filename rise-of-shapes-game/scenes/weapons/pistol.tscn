@@ -44,6 +44,14 @@
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("1_au4or")
+}],
+"loop": false,
+"name": &"nothing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("1_hw5wr")
 }, {
 "duration": 1.0,
@@ -170,11 +178,12 @@ animations = [{
 [node name="Pistol" type="Node2D" unique_id=390308212]
 script = ExtResource("1_5jspj")
 
-[node name="Sprite2d" type="AnimatedSprite2D" parent="." unique_id=1050276873]
-position = Vector2(5, 0)
+[node name="WeaponSprite" type="AnimatedSprite2D" parent="." unique_id=1050276873]
+position = Vector2(7, -2)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_8gc61")
 animation = &"shooting"
+autoplay = "nothing"
 
 [node name="Muzzle" type="Marker2D" parent="." unique_id=1734105299]
-position = Vector2(4.7, -1)
+position = Vector2(6.7, -3)

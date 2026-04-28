@@ -4,6 +4,8 @@ var health: int = 30
 var speed: float = 80.0
 var damage: int = 10
 var player: Node2D = null
+var attack_cooldown: float = 0.6
+var attack_timer: float = 0.0
 
 func _ready():
 	add_to_group("enemy")
@@ -24,6 +26,17 @@ func _physics_process(delta):
 			$Sprite2D.flip_h = false
 			
 		move_and_slide()
+		
+		# Damage logic: deals damage every 'attack_cooldown' seconds while player is in range
+		if attack_timer > 0:
+			attack_timer -= delta
+		else:
+			for body in $Hitbox.get_overlapping_bodies():
+				if body.is_in_group("player"):
+					if body.has_method("take_damage"):
+						body.take_damage(damage)
+						attack_timer = attack_cooldown
+						break
 
 func take_damage(amount: int):
 	health -= amount
@@ -37,7 +50,6 @@ func die():
 		player.points += 100
 	queue_free()
 
-func _on_hitbox_body_entered(body):
-	if body.is_in_group("player"):
-		if body.has_method("take_damage"):
-			body.take_damage(damage)
+# The continuous damage is now handled in _physics_process
+func _on_hitbox_body_entered(_body):
+	pass

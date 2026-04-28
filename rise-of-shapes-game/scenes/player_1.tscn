@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://d3yetfllmtrlw" path="res://audio/damage_sound.mp3" id="3_f7tsm"]
 [ext_resource type="Texture2D" uid="uid://cwsoobub3oov2" path="res://assets/UI/Crosshair.png" id="5_wqd30"]
 [ext_resource type="Shader" uid="uid://clt706p88haji" path="res://scripts/crtShader.gdshader" id="6_f2c3w"]
-[ext_resource type="PackedScene" uid="uid://c8y8q8j8q8j8q" path="res://scenes/hud.tscn" id="7_hud"]
+[ext_resource type="PackedScene" uid="uid://bhnb0j3p5ng3b" path="res://scenes/hud.tscn" id="7_hud"]
 
 [sub_resource type="Animation" id="Animation_f2c3w"]
 length = 0.001
@@ -266,7 +266,6 @@ zoom = Vector2(8, 8)
 position_smoothing_enabled = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1042105891]
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1623680535]
 material = SubResource("ShaderMaterial_jkihx")
@@ -277,7 +276,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="WeaponHolder" type="Marker2D" parent="." unique_id=1042432872]
-position = Vector2(18.461538, 0)
+position = Vector2(0, 8)
 
-[node name="HUD" parent="." instance=ExtResource("7_hud")]
-unique_id = 999999
+[node name="HUD" parent="." unique_id=665710870 instance=ExtResource("7_hud")]

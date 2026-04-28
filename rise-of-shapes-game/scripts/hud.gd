@@ -23,6 +23,7 @@ func setup_player(player):
 		player.weapon_switched.connect(_on_weapon_switched)
 	
 	# Initial values
+	health_bar.max_value = player.health
 	_on_points_changed(player.points)
 	_on_health_changed(player.health)
 	if player.weapons_inventory.size() > 0:
