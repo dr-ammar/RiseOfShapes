@@ -16,9 +16,22 @@ var current_weapon_index : int = 0
 var max_weapons : int = 2
 
 #player cash money
-var points: int = 500 # Example currency for the zombie game
+var points: int = 500:
+	set(value):
+		points = value
+		points_changed.emit(points)
+
+var health: int = 100:
+	set(value):
+		health = value
+		health_changed.emit(health)
+
+signal points_changed(new_points)
+signal health_changed(new_health)
+signal weapon_switched(weapon)
 
 func _ready() -> void:
+	add_to_group("player")
 	# الشرط 3: اللاعب يمتلك سلاح الفرد (Pistol) في البداية فقط
 	pickup_weapon(pistol_scene)
 
@@ -74,6 +87,11 @@ func _input(event):
 		var current_weapon = weapons_inventory[current_weapon_index]
 		current_weapon.shoot() # نستدعي دالة الإطلاق للسلاح الممسوك حالياً
 		
+	# زر التعشيق (R)
+	if event.is_action_pressed("reload") and weapons_inventory.size() > 0:
+		var current_weapon = weapons_inventory[current_weapon_index]
+		current_weapon.reload()
+		
 func toggle_weapon():
 	# إخفاء السلاح الحالي
 	weapons_inventory[current_weapon_index].hide()
@@ -118,6 +136,7 @@ func equip_weapon(weapon):
 	# هنا تضع منطق إظهار السلاح (مثلاً تفعيل الـ Sprite الخاص به)
 	# وتحديث خصائص الإطلاق (الضرر، سرعة الطلقة، إلخ)
 	print("السلاح الحالي في يد اللاعب: ", weapon)
+	weapon_switched.emit(weapon)
 
 func drop_or_remove_weapon(weapon):
 	# هنا تقوم بحذف السلاح القديم أو رميه على الأرض

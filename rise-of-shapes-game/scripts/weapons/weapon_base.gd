@@ -8,8 +8,16 @@ var fire_rate: float # الوقت بين كل طلقة والأخرى
 # Ammo Specs
 var max_ammo: int
 var max_reserve_ammo: int
-var current_ammo: int
-var current_reserve_ammo: int
+var current_ammo: int:
+	set(value):
+		current_ammo = value
+		ammo_changed.emit(current_ammo, current_reserve_ammo)
+var current_reserve_ammo: int:
+	set(value):
+		current_reserve_ammo = value
+		ammo_changed.emit(current_ammo, current_reserve_ammo)
+
+signal ammo_changed(current, reserve)
 
 #Reloading Settings
 var is_reloading := false
@@ -62,21 +70,15 @@ func reload():
 			print("i dont have reserve ammo")
 	# يسوي تشييك اذا كل اسباب التعشيق موجوده
 	elif current_ammo < max_ammo and current_reserve_ammo > 0 and is_reloading == false:
-		# يشوف اذا المخزون الاحتياطي للفشق اكبر من الذخيره يفلل الذخيره
-		if current_reserve_ammo > max_ammo:
-			current_reserve_ammo -= max_ammo
-			current_ammo = max_ammo
-			
-		#واذا المخزون الاحتياطي ما ياكل عيش وباقي شوي بس يحط الباقي بالسلاح
-		elif current_reserve_ammo < max_ammo:
-			#                 8       -        4           =  4
-			current_ammo += max_ammo - current_reserve_ammo
-		elif current_reserve_ammo == max_ammo:
-			current_ammo = max_ammo
-			current_reserve_ammo = 0
-			
 		print("reloading !!!")
 		can_shoot = false
+		
+		var ammo_needed = max_ammo - current_ammo
+		var ammo_to_add = min(ammo_needed, current_reserve_ammo)
+		
+		current_ammo += ammo_to_add
+		current_reserve_ammo -= ammo_to_add
+		
 		print("i finished reloading !")
 		can_shoot = true
 		
