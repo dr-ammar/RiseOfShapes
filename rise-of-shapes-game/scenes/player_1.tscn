@@ -206,7 +206,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gneq0"]
-radius = 9.0
+radius = 7.7019176
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gneq0"]
 radius = 9.0
@@ -242,7 +242,7 @@ position = Vector2(-0.5, 0)
 texture = ExtResource("2_f7tsm")
 
 [node name="MovementCollision" type="CollisionShape2D" parent="." unique_id=703132273]
-position = Vector2(0, 5)
+position = Vector2(0, 8.076923)
 shape = SubResource("CircleShape2D_gneq0")
 
 [node name="hitbox" type="Area2D" parent="." unique_id=1098717675]
@@ -265,6 +265,7 @@ zoom = Vector2(8, 8)
 position_smoothing_enabled = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1042105891]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1623680535]
 material = SubResource("ShaderMaterial_jkihx")
@@ -273,3 +274,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="WeaponHolder" type="Marker2D" parent="." unique_id=1042432872]
+position = Vector2(18.461538, 0)
