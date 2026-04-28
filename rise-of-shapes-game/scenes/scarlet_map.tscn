@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dmube2070v55x" path="res://assets/V1.00/wallGuns/Wall_Sell_Shotgun.png" id="5_8abt2"]
 [ext_resource type="Script" uid="uid://b36l8uvnvxh2a" path="res://scripts/weapons/wall_buy.gd" id="5_j0xfe"]
 [ext_resource type="PackedScene" uid="uid://bc452myeww8b3" path="res://scenes/weapons/shotgun.tscn" id="6_b3okn"]
+[ext_resource type="PackedScene" path="res://scenes/zombie_spawner.tscn" id="7_zmbspwnr"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_y51a5"]
 vertices = PackedVector2Array(8, 8, -4, 8, -4, -4, 8, -4)
@@ -786,5 +787,11 @@ shape = SubResource("RectangleShape2D_8abt2")
 [node name="WallSellShotgun" type="Sprite2D" parent="wall_buys/Shotgun_wall" unique_id=1337424539]
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("5_8abt2")
+
+[node name="ZombieSpawner1" parent="." unique_id=973462366 instance=ExtResource("7_zmbspwnr")]
+position = Vector2(700, 450)
+
+[node name="ZombieSpawner2" parent="." unique_id=16226879 instance=ExtResource("7_zmbspwnr")]
+position = Vector2(400, 600)
 
 [connection signal="body_entered" from="wall_buys/Shotgun_wall" to="wall_buys/Shotgun_wall" method="_on_body_entered"]

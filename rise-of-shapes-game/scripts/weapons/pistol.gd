@@ -15,6 +15,8 @@ func _ready():
 	current_reserve_ammo = 32
 	current_ammo = max_ammo
 	
+	bullet_scene = preload("res://scenes/bullet.tscn")
+	
 	# يجب استدعاء دالة الأب لتجهيز مؤقت إطلاق النار (Timer)
 	super._ready()
 
@@ -29,6 +31,6 @@ func shoot():
 		fire_timer.start()
 		
 		# مستقبلاً هنا سنقوم باستدعاء كود إخراج مشهد الطلقة (Bullet) من موقع الـ Muzzle
-		
+		spawn_bullet()
 	elif current_ammo <= 0:
 		reload()

@@ -1,6 +1,8 @@
 extends Node2D
 class_name WeaponBase # هذا السطر مهم جداً! هو ما يسمح للأسلحة الأخرى بوراثة هذا الكلاس
 
+@export var bullet_scene: PackedScene
+
 # المتغيرات المشتركة لكل الأسلحة
 var weapon_name: String = "Default Weapon"
 var damage: int
@@ -56,8 +58,21 @@ func shoot():
 		reload()
 
 func spawn_bullet():
-	# كود إنشاء الطلقة (Instantiate) الأساسي
-	pass
+	if bullet_scene:
+		var bullet = bullet_scene.instantiate()
+		bullet.damage = damage
+		
+		# Get muzzle position if available, otherwise use weapon position
+		if has_node("Muzzle"):
+			bullet.global_position = get_node("Muzzle").global_position
+		else:
+			bullet.global_position = global_position
+			
+		# Set rotation based on global rotation
+		bullet.rotation = global_rotation
+		
+		# Add bullet to the main scene tree (not as a child of the weapon)
+		get_tree().root.add_child(bullet)
 
 func reload():
 	print("current ammo : "+str(current_ammo))

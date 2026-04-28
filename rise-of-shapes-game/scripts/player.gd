@@ -37,8 +37,25 @@ func _ready() -> void:
 
 func _physics_process(delta):
 	camera_movement()
+	aim_weapon()
 	move_and_slide()
 	
+func aim_weapon():
+	if Global.gamepad_mode == false and Global.mobile_mode == false:
+		weapon_holder.look_at(get_global_mouse_position())
+	elif Global.gamepad_mode == true and Global.mobile_mode == false:
+		weapon_holder.look_at($gamepad_crosshair.crosshair.global_position)
+		
+func take_damage(amount: int):
+	health -= amount
+	if health <= 0:
+		die()
+
+func die():
+	print("Player Died!")
+	# Restart current scene for now as a simple game over
+	get_tree().reload_current_scene()
+
 
 # Camera smooth movement with mouse
 func camera_movement():
