@@ -73,6 +73,12 @@ theme_override_colors/font_color = Color(0.92549, 0.737255, 0.101961, 1)
 theme_override_font_sizes/font_size = 32
 text = "$ 500"
 
+[node name="RoundLabel" type="Label" parent="Control/MarginContainer/BottomLeft" unique_id=987654321]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.1, 0.1, 1)
+theme_override_font_sizes/font_size = 48
+text = "1"
+
 [node name="BottomRight" type="VBoxContainer" parent="Control/MarginContainer" unique_id=720450088]
 layout_mode = 2
 size_flags_horizontal = 8

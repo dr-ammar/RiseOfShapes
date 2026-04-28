@@ -1,14 +1,16 @@
-# السطر الأهم: هنا نخبر Godot أن هذا السكربت هو ابن لـ WeaponBase
-
 extends WeaponBase
 class_name Pistol
 
-@onready var muzzle = $Muzzle # ربطنا نقطة خروج الطلقة بالسكربت
+# --- الموارد (Resources) ---
+var shoot_sfx = preload("res://audio/m1911-pistol-shoot.mp3")
+var reload_sfx = preload("res://audio/m1911-reload.mp3")
 
 func _ready():
-	# هنا نحدد أرقام الفرد الخاص بنا
+	# إعدادات المسدس الخاصة
 	weapon_name = "Pistol"
 	damage = 10
+	knockback_force = 150.0 # ارتداد خفيف للمسدس
+	max_range = 800.0 # مدى بعيد للمسدس
 	fire_rate = 0.5 
 	max_reserve_ammo = 64
 	max_ammo = 8
@@ -17,26 +19,24 @@ func _ready():
 	
 	bullet_scene = preload("res://scenes/bullet.tscn")
 	
-	# يجب استدعاء دالة الأب لتجهيز مؤقت إطلاق النار (Timer)
+	# استدعاء _ready للأب لتجهيز المؤقت والمكونات
 	super._ready()
 
-var shoot_sfx = preload("res://audio/m1911-pistol-shoot.mp3")
-var reload_sfx = preload("res://audio/m1911-reload.mp3")
+# --- الإجراءات (Actions) ---
 
-# قمنا بإعادة كتابة دالة الإطلاق لنختبرها
 func shoot():
-	# الشروط الأساسية موروثة من الأب (هل مسموح الإطلاق؟ وهل يوجد ذخيرة؟)
-	if can_shoot and current_ammo > 0 and is_reloading == false and is_shooting == false :
-		print("طاخ! تم الإطلاق من: ", weapon_name, " | الذخيرة المتبقية: ", current_ammo - 1)
-		current_ammo -= 1
+	# التحقق من شروط الإطلاق الموروثة
+	if can_shoot and current_ammo > 0 and not is_reloading and not is_shooting:
+		print("إطلاق نار من المسدس!")
+		self.current_ammo -= 1
 		can_shoot = false
 		is_shooting = true
+		
 		fire_timer.start()
 		play_shoot_anim()
 		play_shoot_sfx(shoot_sfx)
+		spawn_bullet(damage)
 		
-		# مستقبلاً هنا سنقوم باستدعاء كود إخراج مشهد الطلقة (Bullet) من موقع الـ Muzzle
-		spawn_bullet()
 	elif current_ammo <= 0:
 		reload()
 
@@ -44,5 +44,6 @@ func reload():
 	if current_ammo == max_ammo or current_reserve_ammo == 0 or is_reloading or is_shooting:
 		return
 	
-	play_reload_sfx(reload_sfx)
+	# تشغيل صوت التعشيق بسرعة محددة (1.2 لتناسب الأنيميشن)
+	play_reload_sfx(reload_sfx, 1.2)
 	super.reload()

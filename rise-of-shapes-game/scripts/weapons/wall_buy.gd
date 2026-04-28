@@ -1,29 +1,33 @@
 extends Area2D
 class_name WallBuy
 
-# Drag and drop the weapon scene (e.g., Shotgun.tscn) here in the Inspector!
-@export var weapon_to_give: PackedScene
-@export var weapon_cost: int = 500
-@export var weapon_name: String
+# --- إعدادات الشراء (Inspector Settings) ---
+@export var weapon_to_give: PackedScene # مشهد السلاح المطلوب
+@export var weapon_cost: int = 500       # سعر السلاح
+@export var weapon_name: String          # اسم السلاح للعرض
 
-
-# Assuming you have a way to detect the player pressing an interact button
-func interact(player):
-	# Check if the player has enough points (assuming you add a points system)
-	if player.points >= weapon_cost:
-		player.points -= weapon_cost
-		
-		# We pass the PackedScene directly to the player's function
-		player.pickup_weapon(weapon_to_give)
-		print(weapon_name + " bought from the wall!")
-
-
+# --- إدارة اللاعبين في المدى ---
 var players_in_range: Array = []
 
+# --- المعالجة (Processing) ---
+
 func _process(_delta):
+	# التحقق من ضغط زر التفاعل (E عادةً) لجميع اللاعبين الموجودين في النطاق
 	if Input.is_action_just_pressed("interact"):
 		for player in players_in_range:
 			interact(player)
+
+func interact(player):
+	# التحقق من توفر النقاط الكافية
+	if player.points >= weapon_cost:
+		player.points -= weapon_cost
+		# إضافة السلاح لحقيبة اللاعب
+		player.pickup_weapon(weapon_to_give)
+		print(weapon_name + " تم شراؤه من الجدار!")
+	else:
+		print("لا تملك نقاطاً كافية لـ " + weapon_name)
+
+# --- إشارات المنطقة (Area Signals) ---
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):

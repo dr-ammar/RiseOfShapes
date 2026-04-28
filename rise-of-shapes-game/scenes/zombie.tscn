@@ -43,14 +43,14 @@ _data = {
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_httt1"]
 radius = 13.333333
-height = 49.333332
+height = 68.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hitbox"]
 radius = 16.666664
 height = 100.0
 
 [node name="zombie" type="CharacterBody2D" unique_id=2074171177]
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.25, 0.25)
 script = ExtResource("1_httt1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1945689687]
@@ -64,7 +64,7 @@ hframes = 5
 vframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=845111081]
-position = Vector2(0, 2)
+position = Vector2(0, 6)
 shape = SubResource("CapsuleShape2D_httt1")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1315646047]
@@ -74,3 +74,5 @@ position = Vector2(6.666668, 0)
 shape = SubResource("CapsuleShape2D_hitbox")
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

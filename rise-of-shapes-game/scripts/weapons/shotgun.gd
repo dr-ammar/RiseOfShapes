@@ -1,13 +1,17 @@
 extends WeaponBase
 class_name Shotgun
 
-@onready var muzzle = $Muzzle # ربطنا نقطة خروج الطلقة بالسكربت
+# --- الموارد (Resources) ---
+var shoot_sfx = preload("res://audio/shotgun-firing-3-14483.mp3")
+var reload_sfx = preload("res://audio/rifle-or-shotgun-reload-6787.mp3")
 
 func _ready():
-	
+	# إعدادات الشوزن الخاصة
 	weapon_name = "Shotgun"
-	damage = 30
-	fire_rate = 1.0 #1.0s
+	damage = 50
+	knockback_force = 450.0 # ارتداد قوي جداً للشوزن
+	max_range = 150.0 # مدى قصير للشوزن
+	fire_rate = 1.0
 	max_reserve_ammo = 32
 	max_ammo = 4
 	current_reserve_ammo = max_reserve_ammo
@@ -15,26 +19,22 @@ func _ready():
 	
 	bullet_scene = preload("res://scenes/bullet.tscn")
 	
-	# يجب استدعاء دالة الأب لتجهيز مؤقت إطلاق النار (Timer)
+	# استدعاء _ready للأب لتجهيز المؤقت والمكونات
 	super._ready()
 
-var shoot_sfx = preload("res://audio/shotgun-firing-3-14483.mp3")
-var reload_sfx = preload("res://audio/rifle-or-shotgun-reload-6787.mp3")
+# --- الإجراءات (Actions) ---
 
-# قمنا بإعادة كتابة دالة الإطلاق لنختبرها
 func shoot():
-	# الشروط الأساسية موروثة من الأب (هل مسموح الإطلاق؟ وهل يوجد ذخيرة؟)
-	if can_shoot and current_ammo > 0 and is_reloading == false and is_shooting == false :
-		print("طاخ! تم الإطلاق من: ", weapon_name, " | الذخيرة المتبقية: ", current_ammo - 1)
-		current_ammo -= 1
+	if can_shoot and current_ammo > 0 and not is_reloading and not is_shooting:
+		print("إطلاق نار من الشوزن!")
+		self.current_ammo -= 1
 		can_shoot = false
 		is_shooting = true
+		
 		fire_timer.start()
 		play_shoot_anim()
 		play_shoot_sfx(shoot_sfx)
-		
-		# For shotgun, maybe spawn multiple pellets? For now just one like pistol
-		spawn_bullet()
+		spawn_bullet(damage)
 		
 	elif current_ammo <= 0:
 		reload()
@@ -43,5 +43,6 @@ func reload():
 	if current_ammo == max_ammo or current_reserve_ammo == 0 or is_reloading or is_shooting:
 		return
 		
-	play_reload_sfx(reload_sfx)
+	# تشغيل صوت التعشيق بسرعة مضاعفة لتناسب الأنيميشن السريع
+	play_reload_sfx(reload_sfx, 2.0)
 	super.reload()
