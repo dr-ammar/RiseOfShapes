@@ -1,27 +1,59 @@
 [gd_scene format=3 uid="uid://lnrrf1j22jsu"]
 
-[ext_resource type="Texture2D" uid="uid://cosade21u8jsc" path="res://sprites/zombie/zombieSIDE-removebg-preview.png" id="1_1vlb3"]
+[ext_resource type="Texture2D" uid="uid://curutcq1rrh1e" path="res://sprites/zombie/zombie-chasing_someone.png" id="1_1vlb3"]
+[ext_resource type="Script" uid="uid://cevd4khwhvwf4" path="res://scripts/zombie.gd" id="1_httt1"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_httt1"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_1vlb3")
-}],
-"loop": true,
-"name": &"walkingSide",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"walkingUpDown",
-"speed": 5.0
-}]
+[sub_resource type="Animation" id="Animation_1vlb3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_httt1"]
+resource_name = "run_sideway"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2, 0.26666668, 0.33333334, 0.4, 0.46666667, 0.53333336, 0.6, 0.6666667, 0.73333335, 0.8, 0.8666667, 0.93333334, 1, 1.0666667, 1.1333333, 1.2, 1.2666667, 1.3333334, 1.400363, 1.4666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]
+}
+
+[sub_resource type="Animation" id="Animation_xepks"]
+resource_name = "run_upwards"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xepks"]
+_data = {
+&"RESET": SubResource("Animation_1vlb3"),
+&"run_sideway": SubResource("Animation_httt1"),
+&"run_upwards": SubResource("Animation_xepks")
+}
 
 [node name="zombie" type="CharacterBody2D" unique_id=2074171177]
+script = ExtResource("1_httt1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=845111081]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1442369716]
-sprite_frames = SubResource("SpriteFrames_httt1")
-animation = &"walkingSide"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1945689687]
+root_node = NodePath("Sprite2D")
+libraries/ = SubResource("AnimationLibrary_xepks")
+
+[node name="Sprite2D" type="Sprite2D" parent="AnimationPlayer" unique_id=1051376306]
+texture = ExtResource("1_1vlb3")
+hframes = 5
+vframes = 5
