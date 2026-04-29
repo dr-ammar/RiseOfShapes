@@ -48,9 +48,9 @@ func _physics_process(_delta):
 func aim_weapon():
 	var target_pos
 	# تحديد موقع الهدف بناءً على وضع اللعب (ماوس أو يد تحكم)
-	if Global.gamepad_mode == false and Global.mobile_mode == false:
+	if GameManager.gamepad_mode == false and GameManager.mobile_mode == false:
 		target_pos = get_global_mouse_position()
-	elif Global.gamepad_mode == true and Global.mobile_mode == false:
+	elif GameManager.gamepad_mode == true and GameManager.mobile_mode == false:
 		target_pos = $gamepad_crosshair.crosshair.global_position
 	else:
 		return
@@ -77,7 +77,7 @@ func aim_weapon():
 func camera_movement():
 	# تحريك الكاميرا بشكل طفيف مع الماوس لزيادة مدى الرؤية
 	var target = get_global_mouse_position()
-	if Global.gamepad_mode:
+	if GameManager.gamepad_mode:
 		target = $gamepad_crosshair.crosshair.global_position
 		
 	$Camera2D.offset.x = (target.x - global_position.x) / (160.0 / 2.0)
@@ -150,5 +150,5 @@ func take_damage(amount: int):
 
 func die():
 	print("مات اللاعب!")
-	Global.reset_game()
+	GameManager.reset_game()
 	get_tree().reload_current_scene()

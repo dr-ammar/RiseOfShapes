@@ -29,14 +29,14 @@ func setup_player(player):
 		player.weapon_switched.connect(_on_weapon_switched)
 	
 	# ربط إشارة الجولة من النظام العالمي
-	if not Global.round_changed.is_connected(_on_round_changed):
-		Global.round_changed.connect(_on_round_changed)
+	if not GameManager.round_changed.is_connected(_on_round_changed):
+		GameManager.round_changed.connect(_on_round_changed)
 	
 	# تعيين القيم الأولية
 	health_bar.max_value = player.health
 	_on_points_changed(player.points)
 	_on_health_changed(player.health)
-	_on_round_changed(Global.current_round)
+	_on_round_changed(GameManager.current_round)
 	
 	if player.weapons_inventory.size() > 0:
 		_on_weapon_switched(player.weapons_inventory[player.current_weapon_index])

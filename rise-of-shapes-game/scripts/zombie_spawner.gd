@@ -2,7 +2,7 @@ extends Node2D
 
 # --- الإعدادات ---
 @export var zombie_scene: PackedScene
-@export var spawn_interval: float = 2.0
+@export var spawn_interval: float = 5.0
 var is_active: bool = false
 
 # --- المكونات ---
@@ -21,7 +21,7 @@ func _ready():
 	timer.wait_time = spawn_interval
 	timer.timeout.connect(_on_timer_timeout)
 
-# --- التحكم في السباونر (تستدعى من Global) ---
+# --- التحكم في السباونر (تستدعى من GameManager) ---
 
 func start_spawning():
 	is_active = true
@@ -43,11 +43,11 @@ func spawn_zombie():
 		zombie.global_position = global_position
 		
 		# تعديل قوة الزومبي بناءً على الجولة الحالية
-		var round = Global.current_round
+		var round = GameManager.current_round
 		zombie.health = 20 + (round * 10)
 		zombie.speed = min(30 + (round * 5), 65.0)
 		
 		get_tree().current_scene.add_child(zombie)
 		
 		# إبلاغ النظام بظهور زومبي جديد
-		Global.notify_zombie_spawned()
+		GameManager.notify_zombie_spawned()

@@ -1,17 +1,20 @@
 extends Node
 
-# --- إعدادات نظام الجولات (COD Style) ---
+# --- أوضاع التحكم ---
+var gamepad_mode = false
+var mobile_mode = false
+
+# --- نظام الجولات (COD Zombies Style) ---
 var current_round: int = 1
 var zombies_to_spawn: int = 0
 var zombies_spawned_so_far: int = 0
 var is_round_active: bool = false
 
-# --- مراجع وموارد ---
+signal round_changed(new_round)
+
 var round_sound = preload("res://audio/round-change-sound-effect.mp3")
 @onready var sfx_player: AudioStreamPlayer = AudioStreamPlayer.new()
 @onready var round_delay_timer: Timer = Timer.new()
-
-# --- الدوال الأساسية ---
 
 func _ready():
 	add_child(sfx_player)
@@ -25,7 +28,7 @@ func _ready():
 
 func _process(_delta):
 	if is_round_active:
-		# التحقق من انتهاء الجولة (تم سباون كل الزومبي وموتهم جميعاً)
+		# التحقق من انتهاء الجولة (تم إخراج كل الزومبي وموتهم جميعاً)
 		if zombies_spawned_so_far >= zombies_to_spawn:
 			var alive_zombies = get_tree().get_nodes_in_group("enemy").size()
 			if alive_zombies == 0:
@@ -40,30 +43,40 @@ func start_new_round():
 	if current_round > 5:
 		zombies_to_spawn = 10 + (current_round * 3)
 		
-	# تحديث الحالة العالمية وإطلاق الإشارة
-	Global.current_round = current_round
-	Global.round_changed.emit(current_round)
+	round_changed.emit(current_round)
 	
-	# تشغيل صوت بداية الجولة
+	# تشغيل صوت الجولة
 	sfx_player.stream = round_sound
 	sfx_player.play()
 	
-	# تفعيل السباونرز
-	get_tree().call_group("spawner", "start_spawning")
-	print("بدأت الجولة: ", current_round)
+	# انتظار انتهاء الصوت قبل بدء التوليد (السباون)
+	await sfx_player.finished
+	
+	if is_round_active:
+		# تفعيل مولدات الزومبي (Spawners)
+		get_tree().call_group("spawner", "start_spawning")
+		print("بدأت الجولة: ", current_round, " | الأعداء: ", zombies_to_spawn)
 
 func end_round():
 	is_round_active = false
 	current_round += 1
 	
-	# إيقاف السباونرز
+	# إيقاف مولدات الزومبي
 	get_tree().call_group("spawner", "stop_spawning")
 	
-	# انتظار 7 ثوانٍ قبل الجولة التالية (مثل COD)
+	# انتظار 7 ثوانٍ قبل بدء الجولة التالية
 	round_delay_timer.start(7.0)
-	print("انتهت الجولة! الجولة التالية تبدأ قريباً...")
+	print("انتهت الجولة! استعد للجولة التالية...")
 
 func notify_zombie_spawned():
 	zombies_spawned_so_far += 1
 	if zombies_spawned_so_far >= zombies_to_spawn:
 		get_tree().call_group("spawner", "stop_spawning")
+
+func reset_game():
+	current_round = 1
+	zombies_to_spawn = 0
+	zombies_spawned_so_far = 0
+	is_round_active = false
+	round_delay_timer.stop()
+	round_delay_timer.start(3.0)

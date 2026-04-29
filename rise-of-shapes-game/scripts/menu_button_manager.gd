@@ -15,7 +15,7 @@ func _on_quit_pressed() -> void:
 
 func _on_gamepad_switch_toggled(toggled_on: bool) -> void:
 	if toggled_on:
-		Global.gamepad_mode = true
+		GameManager.gamepad_mode = true
 	else:
-		Global.gamepad_mode = false
-	print(Global.gamepad_mode)
+		GameManager.gamepad_mode = false
+	print(GameManager.gamepad_mode)
