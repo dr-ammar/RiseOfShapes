@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://dw7y8jao0p1q2"]
+
+[ext_resource type="Script" uid="uid://dot7cr1qytplf" path="res://scripts/weapons/thunder_gun.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dy4ksmphp61t0" path="res://assets/wonder_weapons/ThaunderGun-removebg-preview.png" id="2_idle"]
+[ext_resource type="Texture2D" uid="uid://p0igtnig788e" path="res://assets/wonder_weapons/ThunderGunShooting.png" id="3_shoot"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_thunder"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_idle")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_shoot")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_idle")
+}],
+"loop": false,
+"name": &"shooting",
+"speed": 5.0
+}]
+
+[node name="ThunderGun" type="Node2D" unique_id=2031909571]
+script = ExtResource("1_script")
+
+[node name="WeaponSprite" type="AnimatedSprite2D" parent="." unique_id=1956688604]
+position = Vector2(7, -2)
+scale = Vector2(0.05, 0.05)
+sprite_frames = SubResource("SpriteFrames_thunder")
+autoplay = "default"
+flip_h = true
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=2070201657]
+position = Vector2(19, -5)

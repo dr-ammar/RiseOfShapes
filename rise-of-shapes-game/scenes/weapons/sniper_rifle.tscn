@@ -1,7 +1,7 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bnqlp2u3jauh3"]
 
-[ext_resource type="Script" path="res://scripts/weapons/sniper_rifle.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://assets/V1.00/PNG/[design]_Sniper_rifle_[KAR98]_V1.00.png" id="2_texture"]
+[ext_resource type="Script" uid="uid://bcboswwarvg5e" path="res://scripts/weapons/sniper_rifle.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://bngau7sv266lj" path="res://assets/V1.00/PNG/[design]_Sniper_rifle_[KAR98]_V1.00.png" id="2_texture"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1"]
 animations = [{
@@ -30,15 +30,15 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="SniperRifle" type="Node2D"]
+[node name="SniperRifle" type="Node2D" unique_id=1011554820]
 script = ExtResource("1_script")
 
-[node name="WeaponSprite" type="AnimatedSprite2D" parent="."]
+[node name="WeaponSprite" type="AnimatedSprite2D" parent="." unique_id=838095695]
 position = Vector2(7, -2)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_1")
-animation = &"nothing"
+animation = &"reloading"
 autoplay = "nothing"
 
-[node name="Muzzle" type="Marker2D" parent="."]
+[node name="Muzzle" type="Marker2D" parent="." unique_id=1190398678]
 position = Vector2(15, -2)

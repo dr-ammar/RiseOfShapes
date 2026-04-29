@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://df7x8h2k5u6n1"]
+
+[ext_resource type="Script" uid="uid://gffx1g23vqk" path="res://scripts/weapons/thunder_gun_bullet.gd" id="1_thunder"]
+[ext_resource type="Texture2D" uid="uid://cls0gm6qgs6hf" path="res://assets/wonder_weapons/ThunderGunBullet-removebg-preview.png" id="2_texture"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xm8p7"]
+radius = 29.0
+height = 70.0
+
+[node name="ThunderGunBullet" type="Area2D" unique_id=1503797441]
+script = ExtResource("1_thunder")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=851412957]
+position = Vector2(10.999998, 8.999998)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_texture")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2096929409]
+position = Vector2(2, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_xm8p7")
+
+[node name="Timer" type="Timer" parent="." unique_id=200684427]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

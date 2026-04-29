@@ -40,6 +40,7 @@ func _ready() -> void:
 	pickup_weapon(preload("res://scenes/weapons/assault_rifle.tscn"))
 	pickup_weapon(preload("res://scenes/weapons/sniper_rifle.tscn"))
 	pickup_weapon(preload("res://scenes/weapons/raygun.tscn"))
+	pickup_weapon(preload("res://scenes/weapons/thunder_gun.tscn"))
 
 func _physics_process(_delta):
 	camera_movement()
