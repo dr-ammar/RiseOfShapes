@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://doa10egk6o6r0"
-path="res://.godot/imported/Raygun.jpeg-eb7d06ccb29f7c1074897b2b1159beae.ctex"
+uid="uid://c6er3dieyhpq5"
+path="res://.godot/imported/ring.png-6ae6f0dfd2a0bfdc725bc36d89810e74.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/rayguns/Raygun.jpeg"
-dest_files=["res://.godot/imported/Raygun.jpeg-eb7d06ccb29f7c1074897b2b1159beae.ctex"]
+source_file="res://assets/wonder_weapons/ring.png"
+dest_files=["res://.godot/imported/ring.png-6ae6f0dfd2a0bfdc725bc36d89810e74.ctex"]
 
 [params]
 

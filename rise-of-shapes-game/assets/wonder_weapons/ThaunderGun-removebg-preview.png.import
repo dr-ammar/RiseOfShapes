@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6er3dieyhpq5"
-path="res://.godot/imported/ring.png-b00ac133c6796d1357aca2d93a5fd2ea.ctex"
+uid="uid://dy4ksmphp61t0"
+path="res://.godot/imported/ThaunderGun-removebg-preview.png-d9019ce780045dec940df86dc9e32ee5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/rayguns/ring.png"
-dest_files=["res://.godot/imported/ring.png-b00ac133c6796d1357aca2d93a5fd2ea.ctex"]
+source_file="res://assets/wonder_weapons/ThaunderGun-removebg-preview.png"
+dest_files=["res://.godot/imported/ThaunderGun-removebg-preview.png-d9019ce780045dec940df86dc9e32ee5.ctex"]
 
 [params]
 

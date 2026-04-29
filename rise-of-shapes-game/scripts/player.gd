@@ -13,7 +13,7 @@ var is_running := false
 var pistol_scene = preload("res://scenes/weapons/pistol.tscn")
 var weapons_inventory : Array = [] 
 var current_weapon_index : int = 0
-var max_weapons : int = 2
+var max_weapons : int = 4
 
 # --- إحصائيات اللاعب (Player Stats) ---
 var points: int = 500:
@@ -35,12 +35,16 @@ signal weapon_switched(weapon)
 
 func _ready() -> void:
 	add_to_group("player")
-	# إعطاء اللاعب مسدس عند البداية
+	# إعطاء اللاعب جميع الأسلحة للتجربة
 	pickup_weapon(pistol_scene)
+	pickup_weapon(preload("res://scenes/weapons/assault_rifle.tscn"))
+	pickup_weapon(preload("res://scenes/weapons/sniper_rifle.tscn"))
+	pickup_weapon(preload("res://scenes/weapons/raygun.tscn"))
 
 func _physics_process(_delta):
 	camera_movement()
 	aim_weapon()
+	handle_shooting()
 	move_and_slide()
 
 # --- التصويب والحركة (Aiming & Movement) ---
@@ -100,15 +104,21 @@ func _input(event):
 	if event.is_action_pressed("switch_weapon") and weapons_inventory.size() > 1:
 		toggle_weapon()
 		
-	# إطلاق النار
-	if event.is_action_pressed("shoot") and weapons_inventory.size() > 0:
-		weapons_inventory[current_weapon_index].shoot()
-		
 	# التعشيق
 	if event.is_action_pressed("reload") and weapons_inventory.size() > 0:
 		weapons_inventory[current_weapon_index].reload()
 
 # --- إدارة الأسلحة (Inventory Management) ---
+
+func handle_shooting():
+	if weapons_inventory.size() > 0:
+		var current_weapon = weapons_inventory[current_weapon_index]
+		if current_weapon.is_automatic:
+			if Input.is_action_pressed("shoot"):
+				current_weapon.shoot()
+		else:
+			if Input.is_action_just_pressed("shoot"):
+				current_weapon.shoot()
 
 func toggle_weapon():
 	current_weapon_index = (current_weapon_index + 1) % weapons_inventory.size()

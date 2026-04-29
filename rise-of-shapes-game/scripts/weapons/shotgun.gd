@@ -12,6 +12,7 @@ func _ready():
 	knockback_force = 450.0 # ارتداد قوي جداً للشوزن
 	max_range = 150.0 # مدى قصير للشوزن
 	fire_rate = 1.0
+	reload_time = 2.0
 	max_reserve_ammo = 32
 	max_ammo = 4
 	current_reserve_ammo = max_reserve_ammo

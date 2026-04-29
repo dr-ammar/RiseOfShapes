@@ -1,0 +1,44 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/weapons/raygun.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/wonder_weapons/raygun_mark_2-removebg.png" id="2_texture"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_texture")
+}],
+"loop": false,
+"name": &"nothing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_texture")
+}],
+"loop": false,
+"name": &"reloading",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_texture")
+}],
+"loop": false,
+"name": &"shooting",
+"speed": 5.0
+}]
+
+[node name="Raygun" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="WeaponSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(7, -2)
+scale = Vector2(0.05, 0.05)
+sprite_frames = SubResource("SpriteFrames_1")
+animation = &"nothing"
+autoplay = "nothing"
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(15, -2)

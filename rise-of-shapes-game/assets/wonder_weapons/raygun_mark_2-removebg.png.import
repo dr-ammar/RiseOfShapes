@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdv8j76oufxc5"
-path="res://.godot/imported/Raygun-removebg-preview.png-8868fa5d548a4b238676fc816224d31e.ctex"
+uid="uid://cbmkixjy4csf"
+path="res://.godot/imported/raygun_mark_2-removebg.png-ab3b362ccc8447444ea41e98a9579dd9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/rayguns/Raygun-removebg-preview.png"
-dest_files=["res://.godot/imported/Raygun-removebg-preview.png-8868fa5d548a4b238676fc816224d31e.ctex"]
+source_file="res://assets/wonder_weapons/raygun_mark_2-removebg.png"
+dest_files=["res://.godot/imported/raygun_mark_2-removebg.png-ab3b362ccc8447444ea41e98a9579dd9.ctex"]
 
 [params]
 
