@@ -127,21 +127,18 @@ func handle_shooting():
 	if weapons_inventory.size() > 0:
 		var current_weapon = weapons_inventory[current_weapon_index]
 		
-		# في وضع الجوال، نتجاهل ضغطات الماوس الحقيقية لأنها قد تكون ناتجة عن لمس الجويستيك
-		var shooting_pressed = Input.is_action_pressed("shoot")
+		# تحديد الأكشن المناسب بناءً على وضع اللعب
+		var shoot_action = "shoot"
 		if GameManager.mobile_mode:
-			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-				shooting_pressed = false
+			shoot_action = "trigger_shoot"
+			
+		var shooting_pressed = Input.is_action_pressed(shoot_action)
 		
 		if current_weapon.is_automatic:
 			if shooting_pressed:
 				current_weapon.shoot()
 		else:
-			var shooting_just_pressed = Input.is_action_just_pressed("shoot")
-			if GameManager.mobile_mode:
-				if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-					shooting_just_pressed = false
-					
+			var shooting_just_pressed = Input.is_action_just_pressed(shoot_action)
 			if shooting_just_pressed:
 				current_weapon.shoot()
 

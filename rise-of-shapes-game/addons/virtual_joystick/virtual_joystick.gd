@@ -65,6 +65,7 @@ var _touch_index : int = -1
 # FUNCTIONS
 
 func _ready() -> void:
+	add_to_group("virtual_joystick")
 	if ProjectSettings.get_setting("input_devices/pointing/emulate_mouse_from_touch"):
 		printerr("The Project Setting 'emulate_mouse_from_touch' should be set to False")
 	if not ProjectSettings.get_setting("input_devices/pointing/emulate_touch_from_mouse"):
@@ -162,6 +163,7 @@ func _reset():
 	_tip.modulate = _default_color
 	_base.position = _base_default_position
 	_tip.position = _tip_default_position
+	
 	if use_input_actions:
 		for action in [action_left, action_right, action_down, action_up]:
 			Input.action_release(action)

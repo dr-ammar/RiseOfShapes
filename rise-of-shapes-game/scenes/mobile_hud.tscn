@@ -139,7 +139,7 @@ mouse_filter = 2
 position = Vector2(370, 70)
 scale = Vector2(0.3, 0.3)
 texture_normal = ExtResource("4_square")
-action = "shoot"
+action = "trigger_shoot"
 visibility_mode = 1
 
 [node name="Label" type="Label" parent="Buttons/Shoot" unique_id=376744977]
