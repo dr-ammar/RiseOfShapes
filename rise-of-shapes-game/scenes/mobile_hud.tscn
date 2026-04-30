@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cn3rtxaul56xi" path="res://assets/UI/joyknobpng.png" id="3_knob"]
 [ext_resource type="Texture2D" uid="uid://b1yw3hrweshnn" path="res://assets/UI/square.png" id="4_square"]
 [ext_resource type="FontFile" uid="uid://blsxgssh42pox" path="res://assets/fonts/Rubik/static/Rubik-Bold.ttf" id="5_rubik"]
+[ext_resource type="Texture2D" uid="uid://chtmfuokwkt46" path="res://assets/UI/motlt.png" id="6_u4n4t"]
 
 [node name="MobileHUD" type="Control" unique_id=1882333554]
 layout_mode = 3
@@ -188,7 +189,7 @@ vertical_alignment = 1
 [node name="Switch" type="TouchScreenButton" parent="Buttons" unique_id=1256257755]
 position = Vector2(133, 236.00006)
 scale = Vector2(0.2, 0.2)
-texture_normal = ExtResource("4_square")
+texture_normal = ExtResource("6_u4n4t")
 action = "switch_weapon"
 visibility_mode = 1
 

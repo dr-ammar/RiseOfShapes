@@ -43,6 +43,16 @@ func _physics_process(delta):
 	if is_dead:
 		return
 	
+	# معالجة اتجاه الحركة
+	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	velocity = input_dir.normalized() * SPEED
+	
+	# اختيار الأنيميشن المناسب
+	if input_dir == Vector2.ZERO:
+		animation_player.play("idle")
+	else:
+		animation_player.play("run")
+	
 	handle_crosshair_movement(delta)
 	camera_movement()
 	aim_weapon()
@@ -103,15 +113,6 @@ func camera_movement():
 func _input(event):
 	if is_dead:
 		return
-	# معالجة اتجاه الحركة
-	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	velocity = input_dir.normalized() * SPEED
-		
-	# اختيار الأنيميشن المناسب
-	if input_dir == Vector2.ZERO:
-		animation_player.play("idle")
-	else:
-		animation_player.play("run")
 	
 	# تبديل السلاح
 	if event.is_action_pressed("switch_weapon") and weapons_inventory.size() > 1:
