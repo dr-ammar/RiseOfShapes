@@ -1,7 +1,7 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dngousyh6d10w"]
 
-[ext_resource type="Script" path="res://scripts/weapons/raygun.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://assets/wonder_weapons/raygun_mark_2-removebg.png" id="2_texture"]
+[ext_resource type="Script" uid="uid://fe5w5ch2tmrj" path="res://scripts/weapons/raygun.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cbmkixjy4csf" path="res://assets/wonder_weapons/raygun_mark_2-removebg.png" id="2_texture"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1"]
 animations = [{
@@ -30,15 +30,15 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Raygun" type="Node2D"]
+[node name="Raygun" type="Node2D" unique_id=488503402]
 script = ExtResource("1_script")
 
-[node name="WeaponSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(7, -2)
+[node name="WeaponSprite" type="AnimatedSprite2D" parent="." unique_id=78992789]
+position = Vector2(4.0000014, -1)
 scale = Vector2(0.05, 0.05)
 sprite_frames = SubResource("SpriteFrames_1")
-animation = &"nothing"
+animation = &"reloading"
 autoplay = "nothing"
 
-[node name="Muzzle" type="Marker2D" parent="."]
-position = Vector2(15, -2)
+[node name="Muzzle" type="Marker2D" parent="." unique_id=1688610887]
+position = Vector2(12, -2)

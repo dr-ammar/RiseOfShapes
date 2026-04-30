@@ -6,6 +6,7 @@ extends Control
 @onready var points_label = $MarginContainer/BottomLeft/PointsLabel
 @onready var round_label = $MarginContainer/BottomLeft/RoundLabel
 @onready var health_bar = $MarginContainer/TopLeft/HealthBar
+@onready var interaction_label = $CenterContainer/InteractionLabel
 
 # --- متغيرات الحالة ---
 var current_weapon: WeaponBase
@@ -13,6 +14,7 @@ var current_weapon: WeaponBase
 # --- الدوال الأساسية (Lifecycle) ---
 
 func _ready():
+	add_to_group("hud")
 	# انتظار جاهزية اللاعب في المشهد
 	await get_tree().process_frame
 	var player = get_tree().get_first_node_in_group("player")
@@ -71,3 +73,15 @@ func _on_weapon_switched(weapon):
 
 func _on_ammo_changed(current, reserve):
 	ammo_label.text = str(current) + " / " + str(reserve)
+
+func set_interaction_message(message: String):
+	interaction_label.text = message
+
+func show_hud_message(message: String, duration: float = 2.0):
+	# رسالة مؤقتة (مثل "نقاط غير كافية")
+	interaction_label.text = message
+	await get_tree().create_timer(duration).timeout
+	# إذا لم تكن هناك رسالة تفاعل حالية، نمسح النص
+	# (هذا بسيط جداً، قد يحتاج تحسين إذا تداخلت الرسائل)
+	if interaction_label.text == message:
+		interaction_label.text = ""

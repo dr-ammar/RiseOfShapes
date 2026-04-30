@@ -1,8 +1,8 @@
 extends WeaponBase
 class_name ThunderGun
 
-var shoot_sfx = null
-var reload_sfx = preload("res://assets/wonder_weapons/ray-gun-reloading-sound.mp3")
+var shoot_sfx = preload("res://audio/Weapons Sound Effects/ThunderGun_Shoot_Sound.MP3")
+var reload_sfx = preload("res://audio/Weapons Sound Effects/ThunderGun_Reload_Sound.MP3")
 
 func _ready():
 	weapon_name = "Thunder Gun"

@@ -22,7 +22,10 @@ func _ready():
 	
 	round_delay_timer.one_shot = true
 	round_delay_timer.timeout.connect(start_new_round)
-	
+
+func start_game():
+	print("بدأ اللعب!")
+	reset_game()
 	# بدء الجولة الأولى بعد 3 ثوانٍ
 	round_delay_timer.start(3.0)
 
@@ -54,6 +57,7 @@ func start_new_round():
 	
 	if is_round_active:
 		# تفعيل مولدات الزومبي (Spawners)
+		print("تفعيل السباونرز...")
 		get_tree().call_group("spawner", "start_spawning")
 		print("بدأت الجولة: ", current_round, " | الأعداء: ", zombies_to_spawn)
 

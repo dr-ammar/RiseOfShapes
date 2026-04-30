@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b6ib574atody3"
+path="res://.godot/imported/thundergun-sound-effects.mp3-ae461e8ab887949523a7e5cf6f9ad7a2.mp3str"
+
+[deps]
+
+source_file="res://audio/Weapons Sound Effects/thundergun-sound-effects.mp3"
+dest_files=["res://.godot/imported/thundergun-sound-effects.mp3-ae461e8ab887949523a7e5cf6f9ad7a2.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

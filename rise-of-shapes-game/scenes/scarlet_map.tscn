@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://b36l8uvnvxh2a" path="res://scripts/weapons/wall_buy.gd" id="5_j0xfe"]
 [ext_resource type="PackedScene" uid="uid://bc452myeww8b3" path="res://scenes/weapons/shotgun.tscn" id="6_b3okn"]
 [ext_resource type="PackedScene" path="res://scenes/zombie_spawner.tscn" id="7_zmbspwnr"]
+[ext_resource type="PackedScene" uid="uid://cx6m5j6y3q6n5" path="res://scenes/mystery_box.tscn" id="8_mystery"]
+[ext_resource type="Script" path="res://scripts/scarlet_map.gd" id="9_map_script"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_t2h47"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -901,6 +903,7 @@ sources/2 = SubResource("TileSetAtlasSource_g5vqf")
 size = Vector2(42, 10)
 
 [node name="Scarlet Map" type="Node2D" unique_id=1707002807]
+script = ExtResource("9_map_script")
 
 [node name="TileMap" type="TileMap" parent="." unique_id=265582853]
 tile_set = SubResource("TileSet_bg2ll")
@@ -941,5 +944,8 @@ position = Vector2(680, 696)
 
 [node name="ZombieSpawner2" parent="." unique_id=16226879 instance=ExtResource("7_zmbspwnr")]
 position = Vector2(395, 640)
+
+[node name="MysteryBox" parent="." unique_id=987654321 instance=ExtResource("8_mystery")]
+position = Vector2(600, 446)
 
 [connection signal="body_entered" from="wall_buys/Shotgun_wall" to="wall_buys/Shotgun_wall" method="_on_body_entered"]

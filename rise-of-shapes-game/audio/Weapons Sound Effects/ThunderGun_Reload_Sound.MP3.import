@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cuyk3crqi0i6h"
+path="res://.godot/imported/ThunderGun_Reload_Sound.MP3-5bd47f67361b2af611a7749167e36fc4.mp3str"
+
+[deps]
+
+source_file="res://audio/Weapons Sound Effects/ThunderGun_Reload_Sound.MP3"
+dest_files=["res://.godot/imported/ThunderGun_Reload_Sound.MP3-5bd47f67361b2af611a7749167e36fc4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

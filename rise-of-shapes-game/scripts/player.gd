@@ -163,3 +163,6 @@ func die():
 	print("مات اللاعب!")
 	GameManager.reset_game()
 	get_tree().reload_current_scene()
+
+func show_hud_message(message: String):
+	get_tree().call_group("hud", "show_hud_message", message)
