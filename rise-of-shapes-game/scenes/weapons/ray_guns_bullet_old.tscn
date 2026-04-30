@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://5qggfpiqqnl4"]
+
+[ext_resource type="Script" uid="uid://r8l1djssrdt8" path="res://scripts/weapons/raygun_bullet.gd" id="1_0nfnc"]
+[ext_resource type="Texture2D" uid="uid://dkauyaau644i7" path="res://assets/Power_Up_Bubble.png" id="2_4b22c"]
+[ext_resource type="Texture2D" uid="uid://c6er3dieyhpq5" path="res://assets/wonder_weapons/ring.png" id="3_ugmao"]
+
+[sub_resource type="Gradient" id="Gradient_7kfy2"]
+offsets = PackedFloat32Array(0, 0.731497)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7sn0n"]
+gradient = SubResource("Gradient_7kfy2")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.054131053)
+
+[sub_resource type="Gradient" id="Gradient_inmgq"]
+offsets = PackedFloat32Array(0, 0.144231)
+colors = PackedColorArray(0.698039, 0.396078, 0.537255, 1, 1, 1, 1, 1)
+
+[sub_resource type="Curve" id="Curve_8tjx7"]
+_data = [Vector2(0, 0.047510028), 0.0, 0.0, 0, 0, Vector2(1, 0.3600458), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ewamt"]
+radius = 1.0
+
+[node name="RaygunBullet" type="Area2D" unique_id=965907529]
+script = ExtResource("1_0nfnc")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1531830666]
+color = Color(0, 0.611765, 0, 1)
+energy = 5.0
+texture = SubResource("GradientTexture2D_7sn0n")
+
+[node name="sprite2d" type="Sprite2D" parent="." unique_id=128713147]
+rotation = 1.5708
+scale = Vector2(0.005, 0.005)
+texture = ExtResource("2_4b22c")
+
+[node name="particles" type="CPUParticles2D" parent="." unique_id=582286988]
+modulate = Color(1, 1, 1, 0.8039216)
+position = Vector2(1, 0)
+amount = 1500
+lifetime = 1.5
+emission_shape = 1
+emission_sphere_radius = 0.1
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+scale_amount_min = 1.3
+scale_amount_max = 1.3
+color = Color(0, 1, 0, 1)
+color_ramp = SubResource("Gradient_inmgq")
+
+[node name="rings" type="CPUParticles2D" parent="." unique_id=1997474346]
+modulate = Color(1, 1, 1, 0.76862746)
+position = Vector2(1, 0)
+amount = 100
+texture = ExtResource("3_ugmao")
+lifetime = 1.5
+emission_shape = 1
+emission_sphere_radius = 0.1
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+scale_amount_curve = SubResource("Curve_8tjx7")
+color = Color(0, 1, 0, 1)
+color_ramp = SubResource("Gradient_inmgq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=294401408]
+shape = SubResource("CircleShape2D_ewamt")
+
+[node name="Timer" type="Timer" parent="." unique_id=637882335]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

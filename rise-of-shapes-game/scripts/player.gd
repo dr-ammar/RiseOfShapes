@@ -3,6 +3,7 @@ extends CharacterBody2D
 # --- إعدادات الحركة (Movement Settings) ---
 const SPEED = 100.0
 var is_running := false
+var is_dead := false
 
 # --- مراجع العقد (Node References) ---
 @onready var weapon_holder = $WeaponHolder
@@ -39,10 +40,12 @@ func _ready() -> void:
 	pickup_weapon(pistol_scene)
 	pickup_weapon(preload("res://scenes/weapons/assault_rifle.tscn"))
 	pickup_weapon(preload("res://scenes/weapons/sniper_rifle.tscn"))
-	pickup_weapon(preload("res://scenes/weapons/raygun.tscn"))
 	pickup_weapon(preload("res://scenes/weapons/thunder_gun.tscn"))
+	pickup_weapon(preload("res://scenes/weapons/raygun.tscn"))
 
 func _physics_process(_delta):
+	if is_dead:
+		return
 	camera_movement()
 	aim_weapon()
 	handle_shooting()
@@ -91,6 +94,8 @@ func camera_movement():
 # --- المدخلات (Input Handling) ---
 
 func _input(event):
+	if is_dead:
+		return
 	# معالجة اتجاه الحركة
 	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = input_dir.normalized() * SPEED
@@ -160,9 +165,16 @@ func take_damage(amount: int):
 		die()
 
 func die():
+	if is_dead:
+		return
+	is_dead = true
 	print("مات اللاعب!")
-	GameManager.reset_game()
-	get_tree().reload_current_scene()
+	
+	# إخفاء السلاح عند الموت
+	weapon_holder.hide()
+	
+	# استدعاء شاشة النهاية من الـ HUD
+	get_tree().call_group("hud", "show_game_over", GameManager.current_round, GameManager.total_kills, points)
 
 func show_hud_message(message: String):
 	get_tree().call_group("hud", "show_hud_message", message)

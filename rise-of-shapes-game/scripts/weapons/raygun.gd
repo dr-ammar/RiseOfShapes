@@ -8,7 +8,7 @@ func _ready():
 	weapon_name = "Raygun Mark 2"
 	damage = 250
 	knockback_force = 300.0
-	max_range = 1500.0
+	max_range = 1000.0
 	fire_rate = 0.4
 	is_automatic = true
 	reload_time = 2.8
@@ -17,7 +17,7 @@ func _ready():
 	current_reserve_ammo = 162
 	current_ammo = max_ammo
 	
-	bullet_scene = preload("res://scenes/bullet.tscn")
+	bullet_scene = preload("res://scenes/weapons/ray_guns_bullet_old.tscn")
 	super._ready()
 
 func shoot():

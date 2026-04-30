@@ -7,6 +7,11 @@ extends Control
 @onready var round_label = $MarginContainer/BottomLeft/RoundLabel
 @onready var health_bar = $MarginContainer/TopLeft/HealthBar
 @onready var interaction_label = $CenterContainer/InteractionLabel
+@onready var game_over_overlay = $GameOverOverlay
+@onready var final_round_label = $GameOverOverlay/CenterContainer/VBoxContainer/StatsContainer/FinalRoundLabel
+@onready var final_kills_label = $GameOverOverlay/CenterContainer/VBoxContainer/StatsContainer/FinalKillsLabel
+@onready var final_points_label = $GameOverOverlay/CenterContainer/VBoxContainer/StatsContainer/FinalPointsLabel
+@onready var restart_button = $GameOverOverlay/CenterContainer/VBoxContainer/RestartButton
 
 # --- متغيرات الحالة ---
 var current_weapon: WeaponBase
@@ -20,6 +25,8 @@ func _ready():
 	var player = get_tree().get_first_node_in_group("player")
 	if player:
 		setup_player(player)
+	
+	restart_button.pressed.connect(_on_restart_button_pressed)
 
 func setup_player(player):
 	# ربط إشارات اللاعب بالواجهة
@@ -85,3 +92,20 @@ func show_hud_message(message: String, duration: float = 2.0):
 	# (هذا بسيط جداً، قد يحتاج تحسين إذا تداخلت الرسائل)
 	if interaction_label.text == message:
 		interaction_label.text = ""
+
+func show_game_over(round_reached: int, kills: int, points: int):
+	final_round_label.text = "Round Reached: " + str(round_reached)
+	final_kills_label.text = "Total Kills: " + str(kills)
+	final_points_label.text = "Final Points: $ " + str(points)
+	game_over_overlay.show()
+	# السماح للماوس بالظهور إذا كان مخفياً
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func _on_restart_button_pressed():
+	GameManager.reset_game()
+	get_tree().reload_current_scene()
+
+func _input(event):
+	if game_over_overlay.visible:
+		if event.is_action_pressed("reload"): # استخدام حرف R لإعادة التشغيل أيضاً
+			_on_restart_button_pressed()

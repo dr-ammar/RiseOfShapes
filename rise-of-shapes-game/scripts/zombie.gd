@@ -82,6 +82,7 @@ func die():
 	# إعطاء نقاط للاعب عند موت الزومبي
 	if player and is_instance_valid(player):
 		player.points += 100
+	GameManager.total_kills += 1
 	queue_free()
 
 func _on_hitbox_body_entered(_body):

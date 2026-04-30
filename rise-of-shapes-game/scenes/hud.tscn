@@ -119,3 +119,72 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = ""
 horizontal_alignment = 1
+
+[node name="GameOverOverlay" type="ColorRect" parent="Control" unique_id=999999]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="CenterContainer" type="CenterContainer" parent="Control/GameOverOverlay" unique_id=999998]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/GameOverOverlay/CenterContainer" unique_id=999997]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="YouDiedLabel" type="Label" parent="Control/GameOverOverlay/CenterContainer/VBoxContainer" unique_id=999996]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.1, 0.1, 1)
+theme_override_font_sizes/font_size = 72
+text = "YOU DIED"
+horizontal_alignment = 1
+
+[node name="StatsContainer" type="VBoxContainer" parent="Control/GameOverOverlay/CenterContainer/VBoxContainer" unique_id=999995]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="FinalRoundLabel" type="Label" parent="Control/GameOverOverlay/CenterContainer/VBoxContainer/StatsContainer" unique_id=999994]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Round Survived: 1"
+horizontal_alignment = 1
+
+[node name="FinalKillsLabel" type="Label" parent="Control/GameOverOverlay/CenterContainer/VBoxContainer/StatsContainer" unique_id=999993]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Total Kills: 0"
+horizontal_alignment = 1
+
+[node name="FinalPointsLabel" type="Label" parent="Control/GameOverOverlay/CenterContainer/VBoxContainer/StatsContainer" unique_id=999992]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92549, 0.737255, 0.101961, 1)
+theme_override_font_sizes/font_size = 24
+text = "Final Points: 500"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="Control/GameOverOverlay/CenterContainer/VBoxContainer" unique_id=999991]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="RestartLabel" type="Label" parent="Control/GameOverOverlay/CenterContainer/VBoxContainer" unique_id=999990]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Press 'R' or Click to Restart"
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="Control/GameOverOverlay/CenterContainer/VBoxContainer" unique_id=999989]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Restart"

@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://ctv8qju7vu72s"]
+
+[ext_resource type="Script" uid="uid://r8l1djssrdt8" path="res://scripts/weapons/raygun_bullet.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://b8pdml6fvgf8v" path="res://assets/wonder_weapons/raygun_bullet.png" id="2_texture"]
+[ext_resource type="Texture2D" uid="uid://c6er3dieyhpq5" path="res://assets/wonder_weapons/ring.png" id="3_ring"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_raygun"]
+radius = 1.0
+
+[node name="RaygunBullet" type="Area2D" unique_id=1742312719]
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1004313381]
+scale = Vector2(0.005, 0.005)
+texture = ExtResource("2_texture")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1745856935]
+amount = 30
+texture = ExtResource("3_ring")
+emission_shape = 1
+emission_sphere_radius = 2.0
+gravity = Vector2(0, 0)
+scale_amount_min = 0.05
+scale_amount_max = 0.2
+color = Color(0.4, 1, 0.4, 1)
+hue_variation_min = -0.1
+hue_variation_max = 0.1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1455881374]
+shape = SubResource("CircleShape2D_raygun")
+
+[node name="Timer" type="Timer" parent="." unique_id=2122744866]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

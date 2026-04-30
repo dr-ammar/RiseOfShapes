@@ -8,6 +8,7 @@ var mobile_mode = false
 var current_round: int = 1
 var zombies_to_spawn: int = 0
 var zombies_spawned_so_far: int = 0
+var total_kills: int = 0
 var is_round_active: bool = false
 
 signal round_changed(new_round)
@@ -68,8 +69,8 @@ func end_round():
 	# إيقاف مولدات الزومبي
 	get_tree().call_group("spawner", "stop_spawning")
 	
-	# انتظار 7 ثوانٍ قبل بدء الجولة التالية
-	round_delay_timer.start(7.0)
+	# انتظار وقت قصير جداً لبدء الصوت فوراً (Immediate sound effect)
+	round_delay_timer.start(0.1)
 	print("انتهت الجولة! استعد للجولة التالية...")
 
 func notify_zombie_spawned():
@@ -81,6 +82,7 @@ func reset_game():
 	current_round = 1
 	zombies_to_spawn = 0
 	zombies_spawned_so_far = 0
+	total_kills = 0
 	is_round_active = false
 	round_delay_timer.stop()
 	round_delay_timer.start(3.0)
