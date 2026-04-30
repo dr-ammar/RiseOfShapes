@@ -1,0 +1,236 @@
+[gd_scene format=3 uid="uid://c6v2j1k2m3n4p"]
+
+[ext_resource type="Script" uid="uid://d0rw3a6b4vxh" path="res://addons/virtual_joystick/virtual_joystick.gd" id="1_joystick"]
+[ext_resource type="Texture2D" uid="uid://bcdhebun6ow4o" path="res://assets/UI/joyring.png" id="2_ring"]
+[ext_resource type="Texture2D" uid="uid://cn3rtxaul56xi" path="res://assets/UI/joyknobpng.png" id="3_knob"]
+[ext_resource type="Texture2D" uid="uid://b1yw3hrweshnn" path="res://assets/UI/square.png" id="4_square"]
+[ext_resource type="FontFile" uid="uid://blsxgssh42pox" path="res://assets/fonts/Rubik/static/Rubik-Bold.ttf" id="5_rubik"]
+
+[node name="MobileHUD" type="Control" unique_id=1882333554]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="LeftJoystick" type="Control" parent="." unique_id=710345317]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 74.0
+offset_top = -285.0
+offset_right = 274.0
+offset_bottom = -85.0
+grow_vertical = 0
+script = ExtResource("1_joystick")
+action_left = "move_left"
+action_right = "move_right"
+action_up = "move_up"
+action_down = "move_down"
+
+[node name="Base" type="TextureRect" parent="LeftJoystick" unique_id=1488259560]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(100, 100)
+texture = ExtResource("2_ring")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tip" type="TextureRect" parent="LeftJoystick/Base" unique_id=1452803627]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(50, 50)
+texture = ExtResource("3_knob")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RightJoystick" type="Control" parent="." unique_id=1624496512]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -306.0
+offset_top = -285.0
+offset_right = -106.0
+offset_bottom = -85.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("1_joystick")
+action_left = "aim_left"
+action_right = "aim_right"
+action_up = "aim_up"
+action_down = "aim_down"
+
+[node name="Base" type="TextureRect" parent="RightJoystick" unique_id=115002147]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(100, 100)
+texture = ExtResource("2_ring")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tip" type="TextureRect" parent="RightJoystick/Base" unique_id=1210995204]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(50, 50)
+texture = ExtResource("3_knob")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Buttons" type="Control" parent="." unique_id=773520061]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -562.0
+offset_top = -464.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Shoot" type="TouchScreenButton" parent="Buttons" unique_id=1153414905]
+position = Vector2(370, 70)
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("4_square")
+action = "shoot"
+visibility_mode = 1
+
+[node name="Label" type="Label" parent="Buttons/Shoot" unique_id=376744977]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -233.333
+offset_top = -100.0
+offset_right = 233.667
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_rubik")
+theme_override_font_sizes/font_size = 120
+text = "SHOOT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Reload" type="TouchScreenButton" parent="Buttons" unique_id=392634825]
+position = Vector2(200, 150)
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("4_square")
+action = "reload"
+visibility_mode = 1
+
+[node name="Label" type="Label" parent="Buttons/Reload" unique_id=326948434]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -233.333
+offset_top = -100.0
+offset_right = 233.667
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_rubik")
+theme_override_font_sizes/font_size = 120
+text = "RELOAD"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Switch" type="TouchScreenButton" parent="Buttons" unique_id=1256257755]
+position = Vector2(133, 236.00006)
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("4_square")
+action = "switch_weapon"
+visibility_mode = 1
+
+[node name="Label" type="Label" parent="Buttons/Switch" unique_id=240297997]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -233.333
+offset_top = -100.0
+offset_right = 233.667
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_rubik")
+theme_override_font_sizes/font_size = 120
+text = "NEXT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Interact" type="TouchScreenButton" parent="Buttons" unique_id=2090445933]
+position = Vector2(30, 300)
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("4_square")
+action = "interact"
+visibility_mode = 1
+
+[node name="Label" type="Label" parent="Buttons/Interact" unique_id=108230351]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -233.333
+offset_top = -100.0
+offset_right = 233.667
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_rubik")
+theme_override_font_sizes/font_size = 120
+text = "USE"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -12,6 +12,7 @@ extends Control
 @onready var final_kills_label = $GameOverOverlay/CenterContainer/VBoxContainer/StatsContainer/FinalKillsLabel
 @onready var final_points_label = $GameOverOverlay/CenterContainer/VBoxContainer/StatsContainer/FinalPointsLabel
 @onready var restart_button = $GameOverOverlay/CenterContainer/VBoxContainer/RestartButton
+@onready var mobile_hud = $MobileHUD
 
 # --- متغيرات الحالة ---
 var current_weapon: WeaponBase
@@ -20,6 +21,11 @@ var current_weapon: WeaponBase
 
 func _ready():
 	add_to_group("hud")
+	
+	# إظهار/إخفاء واجهة الهاتف
+	if mobile_hud:
+		mobile_hud.visible = GameManager.mobile_mode
+	
 	# انتظار جاهزية اللاعب في المشهد
 	await get_tree().process_frame
 	var player = get_tree().get_first_node_in_group("player")

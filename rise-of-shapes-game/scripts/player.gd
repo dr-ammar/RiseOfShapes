@@ -36,20 +36,29 @@ signal weapon_switched(weapon)
 
 func _ready() -> void:
 	add_to_group("player")
-	# إعطاء اللاعب جميع الأسلحة للتجربة
+	# إعطاء اللاعب المسدس فقط عند البدء
 	pickup_weapon(pistol_scene)
-	pickup_weapon(preload("res://scenes/weapons/assault_rifle.tscn"))
-	pickup_weapon(preload("res://scenes/weapons/sniper_rifle.tscn"))
-	pickup_weapon(preload("res://scenes/weapons/thunder_gun.tscn"))
-	pickup_weapon(preload("res://scenes/weapons/raygun.tscn"))
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	if is_dead:
 		return
+	
+	handle_crosshair_movement(delta)
 	camera_movement()
 	aim_weapon()
 	handle_shooting()
 	move_and_slide()
+
+func handle_crosshair_movement(_delta):
+	if GameManager.gamepad_mode or GameManager.mobile_mode:
+		$gamepad_crosshair.visible = true
+		var aim_dir = Input.get_vector("aim_left", "aim_right", "aim_up", "aim_down")
+		
+		# إذا كان اللاعب يحرك عصا التصويب، نقوم بتحديث مكان الكروس هير في دائرة حول اللاعب
+		if aim_dir.length() > 0.1:
+			$gamepad_crosshair.position = aim_dir.normalized() * 60.0 # مسافة ثابتة حول اللاعب
+	else:
+		$gamepad_crosshair.visible = false
 
 # --- التصويب والحركة (Aiming & Movement) ---
 
@@ -58,10 +67,8 @@ func aim_weapon():
 	# تحديد موقع الهدف بناءً على وضع اللعب (ماوس أو يد تحكم)
 	if GameManager.gamepad_mode == false and GameManager.mobile_mode == false:
 		target_pos = get_global_mouse_position()
-	elif GameManager.gamepad_mode == true and GameManager.mobile_mode == false:
-		target_pos = $gamepad_crosshair.crosshair.global_position
 	else:
-		return
+		target_pos = $gamepad_crosshair.global_position
 		
 	# تحديد اتجاه النظر
 	var looking_left = target_pos.x < global_position.x
@@ -85,8 +92,8 @@ func aim_weapon():
 func camera_movement():
 	# تحريك الكاميرا بشكل طفيف مع الماوس لزيادة مدى الرؤية
 	var target = get_global_mouse_position()
-	if GameManager.gamepad_mode:
-		target = $gamepad_crosshair.crosshair.global_position
+	if GameManager.gamepad_mode or GameManager.mobile_mode:
+		target = $gamepad_crosshair.global_position
 		
 	$Camera2D.offset.x = (target.x - global_position.x) / (160.0 / 2.0)
 	$Camera2D.offset.y = (target.y - global_position.y) / (90.0 / 2.0)
@@ -119,11 +126,23 @@ func _input(event):
 func handle_shooting():
 	if weapons_inventory.size() > 0:
 		var current_weapon = weapons_inventory[current_weapon_index]
+		
+		# في وضع الجوال، نتجاهل ضغطات الماوس الحقيقية لأنها قد تكون ناتجة عن لمس الجويستيك
+		var shooting_pressed = Input.is_action_pressed("shoot")
+		if GameManager.mobile_mode:
+			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+				shooting_pressed = false
+		
 		if current_weapon.is_automatic:
-			if Input.is_action_pressed("shoot"):
+			if shooting_pressed:
 				current_weapon.shoot()
 		else:
-			if Input.is_action_just_pressed("shoot"):
+			var shooting_just_pressed = Input.is_action_just_pressed("shoot")
+			if GameManager.mobile_mode:
+				if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+					shooting_just_pressed = false
+					
+			if shooting_just_pressed:
 				current_weapon.shoot()
 
 func toggle_weapon():

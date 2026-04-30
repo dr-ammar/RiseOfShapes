@@ -7,9 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://dmube2070v55x" path="res://assets/V1.00/wallGuns/Wall_Sell_Shotgun.png" id="5_8abt2"]
 [ext_resource type="Script" uid="uid://b36l8uvnvxh2a" path="res://scripts/weapons/wall_buy.gd" id="5_j0xfe"]
 [ext_resource type="PackedScene" uid="uid://bc452myeww8b3" path="res://scenes/weapons/shotgun.tscn" id="6_b3okn"]
-[ext_resource type="PackedScene" path="res://scenes/zombie_spawner.tscn" id="7_zmbspwnr"]
-[ext_resource type="PackedScene" uid="uid://cx6m5j6y3q6n5" path="res://scenes/mystery_box.tscn" id="8_mystery"]
-[ext_resource type="Script" path="res://scripts/scarlet_map.gd" id="9_map_script"]
+[ext_resource type="PackedScene" uid="uid://cfuk6k5anuulk" path="res://scenes/zombie_spawner.tscn" id="7_zmbspwnr"]
+[ext_resource type="PackedScene" uid="uid://dec51mf2320db" path="res://scenes/mystery_box.tscn" id="8_mystery"]
+[ext_resource type="Script" uid="uid://b112in14tbm2d" path="res://scripts/scarlet_map.gd" id="9_map_script"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_t2h47"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -895,7 +895,7 @@ texture = ExtResource("3_8abt2")
 
 [sub_resource type="TileSet" id="TileSet_bg2ll"]
 physics_layer_0/collision_layer = 1
-navigation_layer_0/layers = 1
+navigation_layer_0/layers = 15
 sources/1 = SubResource("TileSetAtlasSource_b3okn")
 sources/2 = SubResource("TileSetAtlasSource_g5vqf")
 

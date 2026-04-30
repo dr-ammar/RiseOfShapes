@@ -57,6 +57,33 @@ grow_horizontal = 0
 text = "ذراع التحكم"
 label_settings = SubResource("LabelSettings_ekxnf")
 
+[node name="Mobile_switch" type="CheckButton" parent="Button Manager" unique_id=1207224858]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 784.0
+offset_top = -230.0
+offset_right = 828.0
+offset_bottom = -200.66
+grow_horizontal = 0
+scale = Vector2(2.045, 2.045)
+theme_override_fonts/font = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 35
+
+[node name="mobile_text" type="Label" parent="Button Manager" unique_id=757386431]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 636.0
+offset_top = -223.0
+offset_right = 785.0
+offset_bottom = -174.0
+grow_horizontal = 0
+text = "وضع الهاتف"
+label_settings = SubResource("LabelSettings_ekxnf")
+
 [node name="Start" type="Button" parent="Button Manager" unique_id=223479146]
 layout_mode = 1
 anchors_preset = 14
@@ -100,6 +127,7 @@ theme_override_font_sizes/font_size = 37
 text = "خروج"
 
 [connection signal="toggled" from="Button Manager/Gamepad_switch" to="Button Manager" method="_on_gamepad_switch_toggled"]
+[connection signal="toggled" from="Button Manager/Mobile_switch" to="Button Manager" method="_on_mobile_switch_toggled"]
 [connection signal="pressed" from="Button Manager/Start" to="Button Manager" method="_on_start_pressed"]
 [connection signal="pressed" from="Button Manager/Settings" to="Button Manager" method="_on_settings_pressed"]
 [connection signal="pressed" from="Button Manager/Quit" to="Button Manager" method="_on_quit_pressed"]
