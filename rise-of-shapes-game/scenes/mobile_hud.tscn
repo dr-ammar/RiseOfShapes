@@ -137,8 +137,8 @@ grow_vertical = 0
 mouse_filter = 2
 
 [node name="Shoot" type="TouchScreenButton" parent="Buttons" unique_id=1153414905]
-position = Vector2(370, 70)
-scale = Vector2(0.3, 0.3)
+position = Vector2(308, -195)
+scale = Vector2(0.5078741, 0.5078741)
 texture_normal = ExtResource("4_square")
 action = "trigger_shoot"
 visibility_mode = 1
@@ -162,8 +162,8 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Reload" type="TouchScreenButton" parent="Buttons" unique_id=392634825]
-position = Vector2(200, 150)
-scale = Vector2(0.2, 0.2)
+position = Vector2(158, 112)
+scale = Vector2(0.36220473, 0.36220473)
 texture_normal = ExtResource("4_square")
 action = "reload"
 visibility_mode = 1
@@ -187,8 +187,8 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Switch" type="TouchScreenButton" parent="Buttons" unique_id=1256257755]
-position = Vector2(133, 236.00006)
-scale = Vector2(0.2, 0.2)
+position = Vector2(337.25, 47.16)
+scale = Vector2(0.36690992, 0.36690992)
 texture_normal = ExtResource("6_u4n4t")
 action = "switch_weapon"
 visibility_mode = 1
@@ -212,8 +212,8 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Interact" type="TouchScreenButton" parent="Buttons" unique_id=2090445933]
-position = Vector2(30, 300)
-scale = Vector2(0.2, 0.2)
+position = Vector2(120.215, 277.805)
+scale = Vector2(0.3, 0.3)
 texture_normal = ExtResource("4_square")
 action = "interact"
 visibility_mode = 1
