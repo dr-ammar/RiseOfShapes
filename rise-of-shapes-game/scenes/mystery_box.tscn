@@ -31,6 +31,8 @@ size = Vector2(128, 38)
 
 [node name="MysteryBox" type="StaticBody2D" unique_id=1157554383]
 scale = Vector2(0.3, 0.3)
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_script")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=832880905]
@@ -42,6 +44,7 @@ animation = &"closed"
 shape = SubResource("RectangleShape2D_box")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=2047189462]
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1868300328]
 position = Vector2(0, 33)
