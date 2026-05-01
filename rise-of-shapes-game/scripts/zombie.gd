@@ -34,7 +34,7 @@ func _physics_process(_delta : float) -> void:
 		if knockback != Vector2.ZERO:
 			velocity += knockback
 			# تقليل قوة الارتداد تدريجياً ليعود لسرعته الطبيعية
-			knockback = knockback.lerp(Vector2.ZERO, 10 * int(_delta))
+			knockback = knockback.lerp(Vector2.ZERO, 15 * _delta)
 			if knockback.length() < 10:
 				knockback = Vector2.ZERO
 		
@@ -47,7 +47,7 @@ func _physics_process(_delta : float) -> void:
 		move_and_slide()
 		
 		# معالجة القتال (الضرب)
-		handle_damage(int(_delta))
+		handle_damage(_delta)
 
 func make_path() -> void:
 	nav_agent.target_position = player.global_position

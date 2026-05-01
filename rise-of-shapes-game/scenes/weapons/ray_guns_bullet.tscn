@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dxetuwl3ovoam"]
+[gd_scene format=3 uid="uid://5qggfpiqqnl4"]
 
 [ext_resource type="Script" uid="uid://r8l1djssrdt8" path="res://scripts/weapons/raygun_bullet.gd" id="1_0nfnc"]
 [ext_resource type="Texture2D" uid="uid://dkauyaau644i7" path="res://assets/Power_Up_Bubble.png" id="2_4b22c"]
