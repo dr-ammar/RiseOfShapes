@@ -10,6 +10,7 @@ var traveled_distance: float = 0.0
 # --- المعالجة (Processing) ---
 
 func _ready():
+	add_to_group("bullet")
 	# تكبير الرصاصة وتلاشيها تدريجياً منذ لحظة الإطلاق
 	var tween = create_tween().set_parallel(true)
 	tween.tween_property(self, "scale", Vector2(0.5,0.5), 0.5)
@@ -35,7 +36,7 @@ func _on_body_entered(body):
 	# إذا اصطدمت الرصاصة بالعدو
 	if body.is_in_group("enemy"):
 		if body.has_method("take_damage"):
-			body.take_damage(damage, knockback_force)
+			body.take_damage(damage, self, knockback_force)
 		# الرصاصة تخترق كل شيء ولا تختفي عند لمس الجدران
 
 func _on_timer_timeout():

@@ -9,6 +9,9 @@ var traveled_distance: float = 0.0
 
 var is_dying: bool = false
 
+func _ready():
+	add_to_group("bullet")
+
 func _physics_process(delta):
 	if is_dying:
 		return
@@ -31,7 +34,7 @@ func _on_body_entered(body):
 	# If bullet hits an enemy
 	if body.is_in_group("enemy"):
 		if body.has_method("take_damage"):
-			body.take_damage(damage, knockback_force)
+			body.take_damage(damage, self, knockback_force)
 		explode()
 	
 	# If bullet hits a wall (anything not player or enemy)

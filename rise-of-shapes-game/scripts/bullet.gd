@@ -9,6 +9,9 @@ var traveled_distance: float = 0.0
 
 # --- المعالجة (Processing) ---
 
+func _ready():
+	add_to_group("bullet")
+
 func _physics_process(delta):
 	# التحرك للأمام بناءً على زاوية التدوير
 	var step = speed * delta
@@ -25,7 +28,7 @@ func _on_body_entered(body):
 	# إذا اصطدمت الرصاصة بالعدو
 	if body.is_in_group("enemy"):
 		if body.has_method("take_damage"):
-			body.take_damage(damage, knockback_force)
+			body.take_damage(damage, self, knockback_force)
 		queue_free() # حذف الرصاصة
 	
 	# إذا اصطدمت الرصاصة بالجدار (أي شيء ليس اللاعب أو العدو)

@@ -19,16 +19,35 @@ var player: Node2D = null
 func _ready():
 	add_to_group("enemy")
 	
+	# إعدادات الملاحة لتجنب الالتصاق بالزوايا
+	nav_agent.path_desired_distance = 4.0
+	nav_agent.target_desired_distance = 4.0
+	nav_agent.path_max_distance = 100.0
+	
 	# البحث عن اللاعب
 	await get_tree().process_frame
 	player = get_tree().get_first_node_in_group("player")
 
 func _physics_process(_delta : float) -> void:
 	if player and is_instance_valid(player):
-		# نظام الحركة الغبي الأساسي
-		var direction = to_local(nav_agent.get_next_path_position()).normalized()
-		velocity = direction * speed
+		var next_path_pos = nav_agent.get_next_path_position()
+		var direction = global_position.direction_to(next_path_pos)
 		
+		# Steering with Soft Separation (تجنب الالتصاق بالزومبي الآخرين)
+		var target_velocity = direction * speed
+		
+		# إضافة قوة تباعد بسيطة لمنع التداخل والاهتزاز (Separation Force)
+		var separation = Vector2.ZERO
+		for neighbor in get_tree().get_nodes_in_group("enemy"):
+			if neighbor != self:
+				var dist = global_position.distance_to(neighbor.global_position)
+				if dist < 15.0: # مسافة التباعد
+					separation += neighbor.global_position.direction_to(global_position) * (15.0 - dist) * 2.0
+		
+		target_velocity += separation
+		
+		# تحريك سلس مع منع الاهتزاز عند الاصطدام
+		velocity = velocity.lerp(target_velocity, 10.0 * _delta)
 		
 		# إضافة تأثير الارتداد للسرعة
 		if knockback != Vector2.ZERO:
@@ -38,10 +57,10 @@ func _physics_process(_delta : float) -> void:
 			if knockback.length() < 10:
 				knockback = Vector2.ZERO
 		
-		# قلب الصورة لتنظر للاعب
-		if direction.x < 0:
+		# قلب الصورة لتنظر للاعب (بناءً على الحركة الفعلية)
+		if velocity.x < -1:
 			sprite.flip_h = true
-		elif direction.x > 0:
+		elif velocity.x > 1:
 			sprite.flip_h = false
 			
 		move_and_slide()
@@ -71,7 +90,11 @@ func handle_damage(delta):
 					attack_timer = attack_cooldown
 					break
 
-func take_damage(amount: int, force: float = 300.0):
+func take_damage(amount: int, source: Node = null, force: float = 300.0):
+	# منع الإصابة الناتجة عن التصادم العادي (Only take damage from valid sources)
+	if source != null and not (source.is_in_group("bullet") or source.is_in_group("weapon")):
+		return
+		
 	health -= amount
 	
 	# تفعيل الارتداد للوراء عكس اتجاه اللاعب بقوة متغيرة حسب السلاح
