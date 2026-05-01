@@ -108,12 +108,14 @@ func transition_from_black() -> void:
 	fade_overlay.hide()
 
 func show_hud_message(message: String, duration: float = 2.0):
-	# رسالة مؤقتة (مثل "نقاط غير كافية")
+	# If duration is 0, message stays until cleared manually
 	interaction_label.text = message
-	await get_tree().create_timer(duration).timeout
-	# إذا لم تكن هناك رسالة تفاعل حالية، نمسح النص
-	if interaction_label.text == message:
-		interaction_label.text = ""
+	
+	if duration > 0:
+		await get_tree().create_timer(duration).timeout
+		# Only clear if it's still the same message
+		if interaction_label.text == message:
+			interaction_label.text = ""
 
 func show_game_over(round_reached: int, kills: int, points: int):
 	final_round_label.text = "Round Reached: " + str(round_reached)

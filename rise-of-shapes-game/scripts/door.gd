@@ -29,10 +29,11 @@ func try_open_door():
 		player_in_area.show_hud_message("Not enough points! Need " + str(cost))
 
 func start_transition():
-	if not target_marker:
-		print("Warning: No target marker set for door!")
+	if not target_marker or not player_in_area:
+		print("Warning: Missing target marker or player for door!")
 		return
 		
+	var player = player_in_area # Store reference in case player exits area during fade
 	is_transitioning = true
 	
 	# Get HUD
@@ -42,7 +43,7 @@ func start_transition():
 		await hud.transition_to_black()
 		
 		# 2. Teleport & Change Area Logic
-		player_in_area.global_position = target_marker.global_position
+		player.global_position = target_marker.global_position
 		GameManager.change_area(area_id)
 		
 		# Small wait for safety
@@ -52,7 +53,7 @@ func start_transition():
 		await hud.transition_from_black()
 	else:
 		# Fallback if no HUD found
-		player_in_area.global_position = target_marker.global_position
+		player.global_position = target_marker.global_position
 		
 	is_transitioning = false
 
@@ -62,10 +63,9 @@ func _on_body_entered(body):
 		var msg = "Press [F] to enter " + destination_name
 		if cost > 0:
 			msg += " (Cost: %d)" % cost
-		body.show_hud_message(msg)
+		body.show_hud_message(msg, 0) # 0 means persistent
 
 func _on_body_exited(body):
-	if body.is_in_group("player"):
-		player_in_area = body
+	if body.is_in_group("player") and player_in_area == body:
 		body.show_hud_message("") # Clear message
 		player_in_area = null

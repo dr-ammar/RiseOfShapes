@@ -106,5 +106,6 @@ func reset_game():
 	zombies_spawned_so_far = 0
 	total_kills = 0
 	is_round_active = false
+	current_area = "Starting Room"
 	round_delay_timer.stop()
 	round_delay_timer.start(3.0)

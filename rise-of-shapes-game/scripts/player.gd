@@ -193,5 +193,5 @@ func die():
 	# استدعاء شاشة النهاية من الـ HUD
 	get_tree().call_group("hud", "show_game_over", GameManager.current_round, GameManager.total_kills, points)
 
-func show_hud_message(message: String):
-	get_tree().call_group("hud", "show_hud_message", message)
+func show_hud_message(message: String, duration: float = 2.0):
+	get_tree().call_group("hud", "show_hud_message", message, duration)
