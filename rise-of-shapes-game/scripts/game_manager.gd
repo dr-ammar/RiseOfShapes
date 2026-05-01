@@ -10,8 +10,10 @@ var zombies_to_spawn: int = 0
 var zombies_spawned_so_far: int = 0
 var total_kills: int = 0
 var is_round_active: bool = false
+var current_area: String = "Starting Room" # Default starting area
 
 signal round_changed(new_round)
+signal area_changed(new_area)
 
 var round_sound = preload("res://audio/round-change-sound-effect.mp3")
 @onready var sfx_player: AudioStreamPlayer = AudioStreamPlayer.new()
@@ -77,6 +79,26 @@ func notify_zombie_spawned():
 	zombies_spawned_so_far += 1
 	if zombies_spawned_so_far >= zombies_to_spawn:
 		get_tree().call_group("spawner", "stop_spawning")
+
+func change_area(new_area_name: String):
+	if current_area == new_area_name:
+		return
+		
+	current_area = new_area_name
+	print("Changing area to: ", current_area)
+	
+	# 1. Despawn all current zombies
+	var alive_zombies = get_tree().get_nodes_in_group("enemy")
+	for zombie in alive_zombies:
+		# We don't want to count these as kills, just remove them
+		# Or you can refund the "zombies_spawned_so_far" if you want them to respawn
+		zombie.queue_free()
+		zombies_spawned_so_far -= 1 # This allows them to respawn in the new area
+	
+	# 2. Notify spawners to update their state
+	get_tree().call_group("spawner", "update_area_status")
+	
+	area_changed.emit(current_area)
 
 func reset_game():
 	current_round = 1

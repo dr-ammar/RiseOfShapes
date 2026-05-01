@@ -17,7 +17,7 @@ func _ready():
 	current_reserve_ammo = 162
 	current_ammo = max_ammo
 	
-	bullet_scene = preload("res://scenes/weapons/ray_guns_bullet_old.tscn")
+	bullet_scene = preload("res://scenes/weapons/ray_guns_bullet.tscn")
 	super._ready()
 
 func shoot():

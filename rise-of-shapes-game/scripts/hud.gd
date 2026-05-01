@@ -90,12 +90,28 @@ func _on_ammo_changed(current, reserve):
 func set_interaction_message(message: String):
 	interaction_label.text = message
 
+# --- الانتقالات (Transitions) ---
+signal transition_finished
+
+@onready var fade_overlay = $FadeOverlay
+@onready var fade_animation = $FadeOverlay/AnimationPlayer
+
+func transition_to_black() -> void:
+	fade_overlay.show()
+	fade_animation.play("fade_to_black")
+	await fade_animation.animation_finished
+	transition_finished.emit()
+
+func transition_from_black() -> void:
+	fade_animation.play("fade_from_black")
+	await fade_animation.animation_finished
+	fade_overlay.hide()
+
 func show_hud_message(message: String, duration: float = 2.0):
 	# رسالة مؤقتة (مثل "نقاط غير كافية")
 	interaction_label.text = message
 	await get_tree().create_timer(duration).timeout
 	# إذا لم تكن هناك رسالة تفاعل حالية، نمسح النص
-	# (هذا بسيط جداً، قد يحتاج تحسين إذا تداخلت الرسائل)
 	if interaction_label.text == message:
 		interaction_label.text = ""
 
