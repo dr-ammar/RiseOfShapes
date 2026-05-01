@@ -12,6 +12,7 @@ var knockback: Vector2 = Vector2.ZERO # لتأثير الارتداد
 
 # --- مراجع العقد ---
 var player: Node2D = null
+@onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
 @onready var sprite = $Sprite2D
 @onready var hitbox = $Hitbox
 
@@ -22,17 +23,18 @@ func _ready():
 	await get_tree().process_frame
 	player = get_tree().get_first_node_in_group("player")
 
-func _physics_process(delta):
+func _physics_process(_delta : float) -> void:
 	if player and is_instance_valid(player):
 		# نظام الحركة الغبي الأساسي
-		var direction = global_position.direction_to(player.global_position)
+		var direction = to_local(nav_agent.get_next_path_position()).normalized()
 		velocity = direction * speed
+		
 		
 		# إضافة تأثير الارتداد للسرعة
 		if knockback != Vector2.ZERO:
 			velocity += knockback
 			# تقليل قوة الارتداد تدريجياً ليعود لسرعته الطبيعية
-			knockback = knockback.lerp(Vector2.ZERO, 10 * delta)
+			knockback = knockback.lerp(Vector2.ZERO, 10 * int(_delta))
 			if knockback.length() < 10:
 				knockback = Vector2.ZERO
 		
@@ -45,7 +47,15 @@ func _physics_process(delta):
 		move_and_slide()
 		
 		# معالجة القتال (الضرب)
-		handle_damage(delta)
+		handle_damage(int(_delta))
+
+func make_path() -> void:
+	nav_agent.target_position = player.global_position
+
+
+
+
+
 
 # --- نظام القتال والموت (المرحلة 3) ---
 
@@ -88,3 +98,8 @@ func die():
 func _on_hitbox_body_entered(_body):
 	# لتفادي الأخطاء بسبب الإشارة المربوطة مسبقاً
 	pass
+
+
+func _on_timer_timeout() -> void:
+	# timer path
+	make_path()

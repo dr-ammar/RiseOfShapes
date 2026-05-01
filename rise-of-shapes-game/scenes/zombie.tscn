@@ -51,6 +51,10 @@ height = 100.0
 
 [node name="zombie" type="CharacterBody2D" unique_id=2074171177]
 scale = Vector2(0.25, 0.25)
+collision_layer = 2
+collision_mask = 3
+motion_mode = 1
+wall_min_slide_angle = 0.0
 script = ExtResource("1_httt1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1945689687]
@@ -63,16 +67,23 @@ texture = ExtResource("1_1vlb3")
 hframes = 5
 vframes = 5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=845111081]
+[node name="MovementShape2D" type="CollisionShape2D" parent="." unique_id=845111081]
 position = Vector2(0, 6)
 shape = SubResource("CapsuleShape2D_httt1")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1315646047]
+collision_layer = 2
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=131690947]
 position = Vector2(6.666668, 0)
 shape = SubResource("CapsuleShape2D_hitbox")
 
-[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1304679023]
+debug_enabled = true
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=1532304385]
+autostart = true
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
