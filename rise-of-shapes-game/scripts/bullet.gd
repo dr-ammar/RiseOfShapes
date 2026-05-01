@@ -11,6 +11,9 @@ var traveled_distance: float = 0.0
 
 func _ready():
 	add_to_group("bullet")
+	# ربط إشارة دخول منطقة (Area) للكشف عن الـ Hitbox
+	if not area_entered.is_connected(_on_area_entered):
+		area_entered.connect(_on_area_entered)
 
 func _physics_process(delta):
 	# التحرك للأمام بناءً على زاوية التدوير
@@ -25,15 +28,22 @@ func _physics_process(delta):
 # --- معالجة التصادم (Collision Handling) ---
 
 func _on_body_entered(body):
-	# إذا اصطدمت الرصاصة بالعدو
+	# الرصاصة الآن تتجاهل جسم الزومبي (العدو) في body_entered 
+	# لأننا نستخدم area_entered للكشف عن الـ Hitbox
 	if body.is_in_group("enemy"):
-		if body.has_method("take_damage"):
-			body.take_damage(damage, self, knockback_force)
-		queue_free() # حذف الرصاصة
-	
-	# إذا اصطدمت الرصاصة بالجدار (أي شيء ليس اللاعب أو العدو)
-	elif not body.is_in_group("player"):
+		return
+		
+	# إذا اصطدمت الرصاصة بالجدار (أي شيء ليس اللاعب)
+	if not body.is_in_group("player"):
 		queue_free() # حذف الرصاصة عند لمس الجدار
+
+func _on_area_entered(area):
+	# الكشف عن إصابة الزومبي من خلال الـ Hitbox الخاص به
+	if area.is_in_group("enemy_hitbox"):
+		var zombie = area.get_parent()
+		if zombie.has_method("take_damage"):
+			zombie.take_damage(damage, knockback_force)
+		queue_free()
 
 # --- التخلص من الرصاصة تلقائياً ---
 

@@ -11,6 +11,8 @@ var is_dying: bool = false
 
 func _ready():
 	add_to_group("bullet")
+	if not area_entered.is_connected(_on_area_entered):
+		area_entered.connect(_on_area_entered)
 
 func _physics_process(delta):
 	if is_dying:
@@ -31,19 +33,23 @@ func _on_body_entered(body):
 	if is_dying:
 		return
 		
-	# If bullet hits an enemy
+	# Ignore enemy body, we use area_entered for Hitbox
 	if body.is_in_group("enemy"):
-		if body.has_method("take_damage"):
-			body.take_damage(damage, self, knockback_force)
-		explode()
+		return
 	
-	# If bullet hits a wall (anything not player or enemy)
-	elif not body.is_in_group("player"):
+	# If bullet hits a wall (anything not player)
+	if not body.is_in_group("player"):
 		explode()
 
-func _on_area_entered(_area):
-	# Handle collisions with other areas if necessary
-	pass
+func _on_area_entered(area):
+	if is_dying:
+		return
+		
+	if area.is_in_group("enemy_hitbox"):
+		var zombie = area.get_parent()
+		if zombie.has_method("take_damage"):
+			zombie.take_damage(damage, knockback_force)
+		explode()
 
 func _on_timer_timeout():
 	explode()

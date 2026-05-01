@@ -11,6 +11,8 @@ var traveled_distance: float = 0.0
 
 func _ready():
 	add_to_group("bullet")
+	if not area_entered.is_connected(_on_area_entered):
+		area_entered.connect(_on_area_entered)
 	# تكبير الرصاصة وتلاشيها تدريجياً منذ لحظة الإطلاق
 	var tween = create_tween().set_parallel(true)
 	tween.tween_property(self, "scale", Vector2(0.5,0.5), 0.5)
@@ -33,11 +35,18 @@ func _physics_process(delta):
 # --- معالجة التصادم (Collision Handling) ---
 
 func _on_body_entered(body):
-	# إذا اصطدمت الرصاصة بالعدو
-	if body.is_in_group("enemy"):
-		if body.has_method("take_damage"):
-			body.take_damage(damage, self, knockback_force)
-		# الرصاصة تخترق كل شيء ولا تختفي عند لمس الجدران
+	# Ignore enemy body, we use area_entered for Hitbox
+	if body.is_in_group("enemy") or body.is_in_group("player"):
+		return
+	# Thunder gun penetrats but still checks for wall groups if needed
+	pass
+
+func _on_area_entered(area):
+	# إذا اصطدمت الرصاصة بالـ Hitbox الخاص بالعدو
+	if area.is_in_group("enemy_hitbox"):
+		var zombie = area.get_parent()
+		if zombie.has_method("take_damage"):
+			zombie.take_damage(damage, knockback_force)
 
 func _on_timer_timeout():
 	queue_free()

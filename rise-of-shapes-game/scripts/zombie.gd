@@ -18,6 +18,8 @@ var player: Node2D = null
 
 func _ready():
 	add_to_group("enemy")
+	if has_node("Hitbox"):
+		$Hitbox.add_to_group("enemy_hitbox")
 	
 	# إعدادات الملاحة لتجنب الالتصاق بالزوايا
 	nav_agent.path_desired_distance = 4.0
@@ -90,11 +92,9 @@ func handle_damage(delta):
 					attack_timer = attack_cooldown
 					break
 
-func take_damage(amount: int, source: Node = null, force: float = 300.0):
-	# منع الإصابة الناتجة عن التصادم العادي (Only take damage from valid sources)
-	if source != null and not (source.is_in_group("bullet") or source.is_in_group("weapon")):
-		return
-		
+func take_damage(amount: int, force: float = 300.0):
+	if amount <= 0: return # Ignore non-damaging collisions
+	
 	health -= amount
 	
 	# تفعيل الارتداد للوراء عكس اتجاه اللاعب بقوة متغيرة حسب السلاح
@@ -103,10 +103,11 @@ func take_damage(amount: int, source: Node = null, force: float = 300.0):
 		knockback = push_dir * force
 	
 	# تأثير وميض أحمر عند تلقي الضرر
-	sprite.modulate = Color(1, 0, 0)
-	await get_tree().create_timer(0.1).timeout
 	if is_instance_valid(sprite):
-		sprite.modulate = Color(1, 1, 1)
+		sprite.modulate = Color(1, 0, 0)
+		await get_tree().create_timer(0.1).timeout
+		if is_instance_valid(sprite):
+			sprite.modulate = Color(1, 1, 1)
 		
 	if health <= 0:
 		die()
