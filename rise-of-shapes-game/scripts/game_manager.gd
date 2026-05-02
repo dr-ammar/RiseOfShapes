@@ -11,6 +11,7 @@ var zombies_spawned_so_far: int = 0
 var total_kills: int = 0
 var is_round_active: bool = false
 var current_area: String = "Starting Room" # Default starting area
+var opened_doors: Dictionary = {} # Stores unique paths of purchased doors
 
 signal round_changed(new_round)
 signal area_changed(new_area)
@@ -100,6 +101,12 @@ func change_area(new_area_name: String):
 	
 	area_changed.emit(current_area)
 
+func is_door_open(door_path: String) -> bool:
+	return opened_doors.has(door_path)
+
+func mark_door_as_open(door_path: String):
+	opened_doors[door_path] = true
+
 func reset_game():
 	current_round = 1
 	zombies_to_spawn = 0
@@ -107,5 +114,6 @@ func reset_game():
 	total_kills = 0
 	is_round_active = false
 	current_area = "Starting Room"
+	opened_doors.clear()
 	round_delay_timer.stop()
 	round_delay_timer.start(3.0)

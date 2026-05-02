@@ -19,7 +19,10 @@ func _ready():
 func _process(_delta):
 	if player_in_area and not is_transitioning:
 		if Input.is_action_just_pressed("interact"):
-			try_open_door()
+			if GameManager.is_door_open(get_path()):
+				start_transition()
+			else:
+				try_open_door()
 
 func try_open_door():
 	if player_in_area.points >= cost:
@@ -35,6 +38,9 @@ func start_transition():
 		
 	var player = player_in_area # Store reference in case player exits area during fade
 	is_transitioning = true
+	
+	# Mark as open permanently for this run
+	GameManager.mark_door_as_open(get_path())
 	
 	# Get HUD
 	var hud = get_tree().get_first_node_in_group("hud")
@@ -61,7 +67,7 @@ func _on_body_entered(body):
 	if body.is_in_group("player"):
 		player_in_area = body
 		var msg = "Press [F] to enter " + destination_name
-		if cost > 0:
+		if cost > 0 and not GameManager.is_door_open(get_path()):
 			msg += " (Cost: %d)" % cost
 		body.show_hud_message(msg, 0) # 0 means persistent
 
