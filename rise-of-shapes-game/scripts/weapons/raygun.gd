@@ -7,7 +7,7 @@ var reload_sfx = preload("res://assets/wonder_weapons/ray-gun-reloading-sound.mp
 func _ready():
 	weapon_name = "Raygun Mark 2"
 	damage = 250
-	knockback_force = 300.0
+	knockback_force = 80.0 # Reduced from 300
 	max_range = 1000.0
 	fire_rate = 0.4
 	is_automatic = true

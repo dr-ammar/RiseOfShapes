@@ -79,7 +79,6 @@ position = Vector2(6.666668, 0)
 shape = SubResource("CapsuleShape2D_hitbox")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1304679023]
-debug_enabled = true
 
 [node name="Timer" type="Timer" parent="." unique_id=1532304385]
 wait_time = 0.1

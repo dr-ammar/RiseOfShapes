@@ -9,7 +9,7 @@ func _ready():
 	# إعدادات الشوزن الخاصة
 	weapon_name = "Shotgun"
 	damage = 50
-	knockback_force = 450.0 # ارتداد قوي جداً للشوزن
+	knockback_force = 150.0 # Reduced from 450
 	max_range = 150.0 # مدى قصير للشوزن
 	fire_rate = 1.0
 	reload_time = 2.0

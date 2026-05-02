@@ -55,8 +55,8 @@ func _physics_process(_delta : float) -> void:
 		if knockback != Vector2.ZERO:
 			velocity += knockback
 			# تقليل قوة الارتداد تدريجياً ليعود لسرعته الطبيعية
-			knockback = knockback.lerp(Vector2.ZERO, 15 * _delta)
-			if knockback.length() < 10:
+			knockback = knockback.lerp(Vector2.ZERO, 30.0 * _delta) # Improved friction
+			if knockback.length() < 5: # Lower threshold to stop
 				knockback = Vector2.ZERO
 		
 		# قلب الصورة لتنظر للاعب (بناءً على الحركة الفعلية)

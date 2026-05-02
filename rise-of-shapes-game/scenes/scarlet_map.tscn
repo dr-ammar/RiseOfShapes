@@ -1360,6 +1360,9 @@ position = Vector2(600, 446)
 [node name="zombie" parent="Starting Room" unique_id=2074171177 instance=ExtResource("11_qhp1n")]
 position = Vector2(529, 620)
 
+[node name="zombie5" parent="Starting Room" unique_id=2024055407 instance=ExtResource("11_qhp1n")]
+position = Vector2(505, 620)
+
 [node name="zombie2" parent="Starting Room" unique_id=1721446249 instance=ExtResource("11_qhp1n")]
 position = Vector2(550, 620)
 

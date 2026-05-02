@@ -9,7 +9,7 @@ func _ready():
 	# إعدادات المسدس الخاصة
 	weapon_name = "Pistol"
 	damage = 10
-	knockback_force = 150.0 # ارتداد خفيف للمسدس
+	knockback_force = 100.0 # Reduced from 150
 	max_range = 800.0 # مدى بعيد للمسدس
 	fire_rate = 0.5 
 	max_reserve_ammo = 64

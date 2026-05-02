@@ -7,7 +7,7 @@ var reload_sfx = preload("res://audio/Weapons Sound Effects/ThunderGun_Reload_So
 func _ready():
 	weapon_name = "Thunder Gun"
 	damage = 1000 # دمج هائل
-	knockback_force = 1000.0 # دفع رعدي
+	knockback_force = 500.0 # Reduced from 1000
 	max_range = 500.0
 	fire_rate = 1.5 # بطيء الإطلاق
 	is_automatic = false

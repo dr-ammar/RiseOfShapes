@@ -7,7 +7,7 @@ var reload_sfx = preload("res://audio/rifle-or-shotgun-reload-6787.mp3")
 func _ready():
 	weapon_name = "Assault Rifle"
 	damage = 15
-	knockback_force = 100.0
+	knockback_force = 40.0 # Reduced from 100
 	max_range = 1200.0
 	fire_rate = 0.1 
 	is_automatic = true
