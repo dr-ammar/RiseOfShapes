@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://bso6awsu3ntt4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a6us8"]
+animations = [{
+"frames": [],
+"loop": false,
+"name": &"Default",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": false,
+"name": &"Double_Points",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": false,
+"name": &"Insta_Kill",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": false,
+"name": &"Max_Ammo",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": false,
+"name": &"Nuke",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": false,
+"name": &"Zombie_Cash",
+"speed": 5.0
+}]
+
+[node name="PowerUp" type="Area2D" unique_id=1101036816]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1671514102]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1814037559]
+sprite_frames = SubResource("SpriteFrames_a6us8")
+animation = &"Default"
+autoplay = "Default"

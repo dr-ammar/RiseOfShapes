@@ -22,7 +22,7 @@ var points: int = 500:
 		points = value
 		points_changed.emit(points)
 
-var health: int = 50:
+var health: int = 150:
 	set(value):
 		health = value
 		health_changed.emit(health)

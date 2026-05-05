@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b01ikagyejcj5" path="res://assets/Pixel Crawler - FREE - 1.8/Environment/Dungeon Prison/Assets/Props.png" id="3_8abt2"]
 [ext_resource type="PackedScene" uid="uid://r3815lspf2o7" path="res://scenes/quick_revive_perk.tscn" id="3_kncx7"]
 [ext_resource type="Script" uid="uid://dfipg23puh63m" path="res://scripts/map_part.gd" id="3_silhf"]
-[ext_resource type="PackedScene" uid="uid://c5lfypq5to6hp" path="res://scenes/player_1.tscn" id="4_y51a5"]
+[ext_resource type="PackedScene" uid="uid://c5lfypq5to6hp" path="res://scenes/player.tscn" id="4_y51a5"]
 [ext_resource type="Texture2D" uid="uid://dmube2070v55x" path="res://assets/V1.00/wallGuns/Wall_Sell_Shotgun.png" id="5_8abt2"]
 [ext_resource type="Script" uid="uid://b36l8uvnvxh2a" path="res://scripts/weapons/wall_buy.gd" id="5_j0xfe"]
 [ext_resource type="PackedScene" uid="uid://bc452myeww8b3" path="res://scenes/weapons/shotgun.tscn" id="6_b3okn"]

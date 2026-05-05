@@ -3,18 +3,6 @@
 [ext_resource type="Script" uid="uid://dlmy578ircejk" path="res://scripts/hud.gd" id="1_h1u2j"]
 [ext_resource type="PackedScene" uid="uid://c6v2j1k2m3n4p" path="res://scenes/mobile_hud.tscn" id="2_mobile_hud"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fill"]
-bg_color = Color(0.85, 0.1, 0.1, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 0.15)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
 bg_color = Color(0.1, 0.1, 0.1, 0.7)
 border_width_left = 2
@@ -27,21 +15,17 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="Animation" id="Animation_fade_to_black"]
-resource_name = "fade_to_black"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
-}
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fill"]
+bg_color = Color(0.85, 0.1, 0.1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.15)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="Animation" id="Animation_fade_from_black"]
 resource_name = "fade_from_black"
@@ -59,10 +43,26 @@ tracks/0/keys = {
 "values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_fade_to_black"]
+resource_name = "fade_to_black"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_transition"]
 _data = {
-"fade_from_black": SubResource("Animation_fade_from_black"),
-"fade_to_black": SubResource("Animation_fade_to_black")
+&"fade_from_black": SubResource("Animation_fade_from_black"),
+&"fade_to_black": SubResource("Animation_fade_to_black")
 }
 
 [node name="HUD" type="CanvasLayer" unique_id=892175195]
@@ -94,11 +94,12 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 
 [node name="HealthBar" type="ProgressBar" parent="Control/MarginContainer/TopLeft" unique_id=1447812060]
-custom_minimum_size = Vector2(200, 30)
+custom_minimum_size = Vector2(300, 30)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_bg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_fill")
-value = 100.0
+max_value = 150.0
+value = 150.0
 show_percentage = false
 
 [node name="BottomLeft" type="VBoxContainer" parent="Control/MarginContainer" unique_id=1966861425]
@@ -153,10 +154,9 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="InteractionLabel" type="Label" parent="Control/CenterContainer" unique_id=9876543210]
+[node name="InteractionLabel" type="Label" parent="Control/CenterContainer" unique_id=1286608618]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = ""
 horizontal_alignment = 1
 
 [node name="GameOverOverlay" type="ColorRect" parent="Control" unique_id=999999]
@@ -239,10 +239,8 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/FadeOverlay" unique_id=333333]
-libraries = {
-"": SubResource("AnimationLibrary_transition")
-}
+libraries/ = SubResource("AnimationLibrary_transition")
 
-[node name="MobileHUD" parent="Control" instance=ExtResource("2_mobile_hud")]
+[node name="MobileHUD" parent="Control" unique_id=1176394473 instance=ExtResource("2_mobile_hud")]
 visible = false
 layout_mode = 1
