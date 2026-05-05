@@ -177,6 +177,8 @@ animations = [{
 
 [node name="Pistol" type="Node2D" unique_id=390308212]
 script = ExtResource("1_5jspj")
+reload_time = 0.8
+shoot_reload_block_time = 0.3
 
 [node name="WeaponSprite" type="AnimatedSprite2D" parent="." unique_id=1050276873]
 position = Vector2(7, -2)

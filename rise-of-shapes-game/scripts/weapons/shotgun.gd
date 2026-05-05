@@ -41,7 +41,7 @@ func shoot():
 		reload()
 
 func reload():
-	if current_ammo == max_ammo or current_reserve_ammo == 0 or is_reloading or is_shooting:
+	if current_ammo == max_ammo or current_reserve_ammo == 0 or is_reloading or not reload_block_timer.is_stopped():
 		return
 		
 	# تشغيل صوت التعشيق بسرعة مضاعفة لتناسب الأنيميشن السريع

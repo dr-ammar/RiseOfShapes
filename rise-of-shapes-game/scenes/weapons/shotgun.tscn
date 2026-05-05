@@ -132,6 +132,7 @@ animations = [{
 
 [node name="shotgun" type="Node2D" unique_id=1501528188]
 script = ExtResource("1_4xu40")
+shoot_reload_block_time = 0.0
 
 [node name="WeaponSprite" type="AnimatedSprite2D" parent="." unique_id=641943240]
 modulate = Color(0.70380783, 0.70380783, 0.70380783, 1)

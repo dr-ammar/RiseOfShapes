@@ -10,11 +10,16 @@ var attack_cooldown: float = 0.6
 var attack_timer: float = 0.0
 var knockback: Vector2 = Vector2.ZERO # لتأثير الارتداد
 
+# -- Power Up Settings
+const MAX_POWER_UPS_PER_ROUND := 5
+var powers_showed := 0
+
 # --- مراجع العقد ---
 var player: Node2D = null
 @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
 @onready var sprite = $Sprite2D
 @onready var hitbox = $Hitbox
+@onready var power_up_scene_packed = preload("res://scenes/power_up.tscn")
 
 func _ready():
 	add_to_group("enemy")
@@ -109,15 +114,29 @@ func take_damage(amount: int, force: float = 300.0):
 		if is_instance_valid(sprite):
 			sprite.modulate = Color(1, 1, 1)
 		
-	if health <= 0:
+	if health <= 0 or GameManager.is_insta_kill:
 		die()
 
 func die():
 	# إعطاء نقاط للاعب عند موت الزومبي
 	if player and is_instance_valid(player):
-		player.points += 100
+		var points_to_give = 100
+		if GameManager.is_double_points:
+			points_to_give *= 2
+		player.points += points_to_give
+		
+	# احتمالية إسقاط Power-Up
+	check_for_power_up_drop()
+	
 	GameManager.total_kills += 1
 	queue_free()
+
+func check_for_power_up_drop():
+	# 5% chance to drop
+	if randf() < 0.05:
+		var power_up = power_up_scene_packed.instantiate()
+		power_up.global_position = global_position
+		get_tree().root.add_child(power_up)
 
 func _on_hitbox_body_entered(_body):
 	# لتفادي الأخطاء بسبب الإشارة المربوطة مسبقاً
@@ -127,3 +146,37 @@ func _on_hitbox_body_entered(_body):
 func _on_timer_timeout() -> void:
 	# timer path
 	make_path()
+	
+# PowerUp logic is now handled in die() and power_up.gd
+
+func power_up():
+	var percent_of_show = randi_range(0,100)
+	var percent_of_power = randi_range(1,5)
+	
+	if percent_of_show >= 70 and powers_showed < 4:
+		powers_showed += 1
+		power_up_scene.visible = true
+		
+		# اختيار النوع
+		
+		var power_up_choice : String
+		match percent_of_power:
+			1:
+				power_up_choice = "Nuke"
+				power_up_scene.get_node("Sprite").play(power_up_choice)
+			2:
+				power_up_choice = "Double_Points"
+				power_up_scene.get_node("Sprite").play(power_up_choice)
+			3:
+				power_up_choice = "Max_Ammo"
+				power_up_scene.get_node("Sprite").play(power_up_choice)
+			4:
+				power_up_choice = "Insta_Kill"
+				power_up_scene.get_node("Sprite").play(power_up_choice)
+			5:
+				power_up_choice = "Zombie_Cash"
+				power_up_scene.get_node("Sprite").play(power_up_choice)
+	
+	
+	
+	

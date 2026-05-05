@@ -12,9 +12,12 @@ var total_kills: int = 0
 var is_round_active: bool = false
 var current_area: String = "Starting Room" # Default starting area
 var opened_doors: Dictionary = {} # Stores unique paths of purchased doors
+var is_double_points: bool = false
+var is_insta_kill: bool = false
 
 signal round_changed(new_round)
 signal area_changed(new_area)
+signal power_up_activated(type)
 
 var round_sound = preload("res://audio/round-change-sound-effect.mp3")
 @onready var sfx_player: AudioStreamPlayer = AudioStreamPlayer.new()
@@ -113,7 +116,21 @@ func reset_game():
 	zombies_spawned_so_far = 0
 	total_kills = 0
 	is_round_active = false
+	is_double_points = false
+	is_insta_kill = false
 	current_area = "Starting Room"
 	opened_doors.clear()
 	round_delay_timer.stop()
 	round_delay_timer.start(3.0)
+
+func activate_double_points(duration: float = 30.0):
+	is_double_points = true
+	power_up_activated.emit("Double Points")
+	await get_tree().create_timer(duration).timeout
+	is_double_points = false
+
+func activate_insta_kill(duration: float = 30.0):
+	is_insta_kill = true
+	power_up_activated.emit("Insta Kill")
+	await get_tree().create_timer(duration).timeout
+	is_insta_kill = false

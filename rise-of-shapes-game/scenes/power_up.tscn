@@ -1,43 +1,77 @@
 [gd_scene format=3 uid="uid://bso6awsu3ntt4"]
 
+[ext_resource type="Texture2D" uid="uid://bc1ygchxqajlr" path="res://assets/PowerUps/double_points.png" id="1_bmfpq"]
+[ext_resource type="Script" uid="uid://dwr72od5ghjhw" path="res://scripts/power_up.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://crjvsb2siggtq" path="res://assets/PowerUps/Skull_Toon.png" id="2_l224l"]
+[ext_resource type="Texture2D" uid="uid://di5tr5wjia3xb" path="res://assets/PowerUps/Max_Ammo.png" id="3_p7g7m"]
+[ext_resource type="Texture2D" uid="uid://cvuwsbe7exnub" path="res://assets/PowerUps/Kaboom.png" id="4_6m4jj"]
+[ext_resource type="Texture2D" uid="uid://dbah3bhoovc7h" path="res://assets/PowerUps/Zombie_Cash.png" id="5_0lif3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_powerup"]
+radius = 15.0
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_a6us8"]
 animations = [{
-"frames": [],
-"loop": false,
-"name": &"Default",
-"speed": 5.0
-}, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_bmfpq")
+}],
 "loop": false,
 "name": &"Double_Points",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_l224l")
+}],
 "loop": false,
 "name": &"Insta_Kill",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_p7g7m")
+}],
 "loop": false,
 "name": &"Max_Ammo",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_6m4jj")
+}],
 "loop": false,
 "name": &"Nuke",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_0lif3")
+}],
 "loop": false,
 "name": &"Zombie_Cash",
 "speed": 5.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_bmfpq"]
+colors = PackedColorArray(0, 1, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_l224l"]
+gradient = SubResource("Gradient_bmfpq")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="PowerUp" type="Area2D" unique_id=1101036816]
+scale = Vector2(1.5, 1.5)
+collision_layer = 0
+script = ExtResource("1_script")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1671514102]
+shape = SubResource("CircleShape2D_powerup")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1814037559]
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1814037559]
 sprite_frames = SubResource("SpriteFrames_a6us8")
-animation = &"Default"
-autoplay = "Default"
+animation = &"Double_Points"
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=13088604]
+texture = SubResource("GradientTexture2D_l224l")
