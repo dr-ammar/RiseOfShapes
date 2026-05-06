@@ -23,6 +23,12 @@ func _ready():
 	weapon_display.visible = false
 	animated_sprite.play("closed")
 	
+	# التأكد من ربط إشارات المنطقة برمجياً
+	if not area_2d.body_entered.is_connected(_on_area_2d_body_entered):
+		area_2d.body_entered.connect(_on_area_2d_body_entered)
+	if not area_2d.body_exited.is_connected(_on_area_2d_body_exited):
+		area_2d.body_exited.connect(_on_area_2d_body_exited)
+	
 	# إذا لم يتم تحديد أسلحة في المحرر، نضع بعض الأسلحة الافتراضية
 	if weapons_pool.is_empty():
 		weapons_pool.append(preload("res://scenes/weapons/pistol.tscn"))

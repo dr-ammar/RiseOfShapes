@@ -11,6 +11,13 @@ var players_in_range: Array = []
 
 # --- المعالجة (Processing) ---
 
+func _ready():
+	# التأكد من ربط الإشارات برمجياً لضمان عدم حدوث أخطاء إذا لم يتم ربطها في المحرر
+	if not body_entered.is_connected(_on_body_entered):
+		body_entered.connect(_on_body_entered)
+	if not body_exited.is_connected(_on_body_exited):
+		body_exited.connect(_on_body_exited)
+
 func _process(_delta):
 	# التحقق من ضغط زر التفاعل (E عادةً) لجميع اللاعبين الموجودين في النطاق
 	if Input.is_action_just_pressed("interact"):

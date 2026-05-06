@@ -47,6 +47,7 @@ func _process(_delta):
 func start_new_round():
 	is_round_active = true
 	zombies_spawned_so_far = 0
+	Zombie.powers_showed = 0
 	
 	# معادلة عدد الزومبي (تزداد مع كل جولة)
 	zombies_to_spawn = 5 + (current_round * 2)
@@ -115,6 +116,7 @@ func reset_game():
 	zombies_to_spawn = 0
 	zombies_spawned_so_far = 0
 	total_kills = 0
+	Zombie.powers_showed = 0
 	is_round_active = false
 	is_double_points = false
 	is_insta_kill = false
