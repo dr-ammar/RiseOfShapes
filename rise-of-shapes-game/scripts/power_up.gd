@@ -9,6 +9,8 @@ var despawn_time: float = 15.0
 
 var kaboom_sound = preload("res://audio/kaboom-cod-sound-effect.mp3")
 var max_ammo_sound = preload("res://audio/max-ammo-sound.mp3")
+var double_points_sound = preload("res://audio/double_points_sound.mp3")
+var insta_kill_sound = preload("res://audio/insta-kill-sound-effect.mp3")
 
 func _ready():
 	# Randomly choose type
@@ -54,10 +56,14 @@ func apply_effect(player):
 				if enemy.has_method("die"):
 					enemy.die()
 			# Award points
-			player.points += 400
+			var reward = 400
+			if GameManager.is_double_points:
+				reward *= 2
+			player.points += reward
 			
 		PowerUpType.DOUBLE_POINTS:
 			player.show_hud_message("DOUBLE POINTS!", 2.0)
+			play_sound(double_points_sound)
 			GameManager.activate_double_points(30.0)
 			
 		PowerUpType.MAX_AMMO:
@@ -71,11 +77,15 @@ func apply_effect(player):
 					
 		PowerUpType.INSTA_KILL:
 			player.show_hud_message("INSTA-KILL!", 2.0)
+			play_sound(insta_kill_sound)
 			GameManager.activate_insta_kill(30.0)
 			
 		PowerUpType.ZOMBIE_CASH:
 			player.show_hud_message("ZOMBIE CASH!", 2.0)
-			player.points += 500
+			var reward = 500
+			if GameManager.is_double_points:
+				reward *= 2
+			player.points += reward
 
 func _start_blinking():
 	var tween = create_tween().set_loops(10)

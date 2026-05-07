@@ -104,6 +104,13 @@ func take_damage(amount: int, force: float = 300.0):
 	
 	health -= amount
 	
+	# Award points for hitting the zombie
+	if player and is_instance_valid(player):
+		var points_to_give = 10
+		if GameManager.is_double_points:
+			points_to_give *= 2
+		player.points += points_to_give
+	
 	# تفعيل الارتداد للوراء عكس اتجاه اللاعب بقوة متغيرة حسب السلاح
 	if player and is_instance_valid(player):
 		var push_dir = player.global_position.direction_to(global_position)
