@@ -11,6 +11,7 @@ var is_dying: bool = false
 
 func _ready():
 	add_to_group("bullet")
+	collision_mask = 3 # Detect walls (1) and enemies (2)
 	if not area_entered.is_connected(_on_area_entered):
 		area_entered.connect(_on_area_entered)
 
