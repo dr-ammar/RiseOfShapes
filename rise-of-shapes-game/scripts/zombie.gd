@@ -141,8 +141,8 @@ func check_for_power_up_drop():
 	# 5% chance to drop
 	if randf() <= 0.2:
 		var power_up = power_up_scene_packed.instantiate()
+		get_tree().current_scene.add_child(power_up)
 		power_up.global_position = global_position
-		get_tree().root.add_child(power_up)
 		powers_showed += 1
 
 func _on_hitbox_body_entered(_body):

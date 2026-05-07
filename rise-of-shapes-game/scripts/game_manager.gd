@@ -17,7 +17,7 @@ var is_insta_kill: bool = false
 
 signal round_changed(new_round)
 signal area_changed(new_area)
-signal power_up_activated(type)
+signal power_up_status_changed(type: String, active: bool)
 
 var round_sound = preload("res://audio/round-change-sound-effect.mp3")
 @onready var sfx_player: AudioStreamPlayer = AudioStreamPlayer.new()
@@ -127,12 +127,14 @@ func reset_game():
 
 func activate_double_points(duration: float = 30.0):
 	is_double_points = true
-	power_up_activated.emit("Double Points")
+	power_up_status_changed.emit("Double Points", true)
 	await get_tree().create_timer(duration).timeout
 	is_double_points = false
+	power_up_status_changed.emit("Double Points", false)
 
 func activate_insta_kill(duration: float = 30.0):
 	is_insta_kill = true
-	power_up_activated.emit("Insta Kill")
+	power_up_status_changed.emit("Insta Kill", true)
 	await get_tree().create_timer(duration).timeout
 	is_insta_kill = false
+	power_up_status_changed.emit("Insta Kill", false)

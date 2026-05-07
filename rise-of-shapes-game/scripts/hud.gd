@@ -13,6 +13,10 @@ extends Control
 @onready var final_points_label = $GameOverOverlay/CenterContainer/VBoxContainer/StatsContainer/FinalPointsLabel
 @onready var restart_button = $GameOverOverlay/CenterContainer/VBoxContainer/RestartButton
 @onready var mobile_hud = $MobileHUD
+@onready var double_points_icon = $PowerUpContainer/DoublePointsIcon
+@onready var insta_kill_icon = $PowerUpContainer/InstaKillIcon
+@onready var flash_animation = $FlashOverlay/FlashAnimation
+@onready var flash_overlay = $FlashOverlay
 
 # --- متغيرات الحالة ---
 var current_weapon: WeaponBase
@@ -46,6 +50,9 @@ func setup_player(player):
 	# ربط إشارة الجولة من النظام العالمي
 	if not GameManager.round_changed.is_connected(_on_round_changed):
 		GameManager.round_changed.connect(_on_round_changed)
+	
+	if not GameManager.power_up_status_changed.is_connected(_on_power_up_status_changed):
+		GameManager.power_up_status_changed.connect(_on_power_up_status_changed)
 	
 	# تعيين القيم الأولية
 	health_bar.max_value = player.health
@@ -117,6 +124,10 @@ func show_hud_message(message: String, duration: float = 2.0):
 		if interaction_label.text == message:
 			interaction_label.text = ""
 
+func flash_screen():
+	if flash_animation:
+		flash_animation.play("flash")
+
 func show_game_over(round_reached: int, kills: int, points: int):
 	final_round_label.text = "Round Reached: " + str(round_reached)
 	final_kills_label.text = "Total Kills: " + str(kills)
@@ -133,3 +144,10 @@ func _input(event):
 	if game_over_overlay.visible:
 		if event.is_action_pressed("reload"): # استخدام حرف R لإعادة التشغيل أيضاً
 			_on_restart_button_pressed()
+
+func _on_power_up_status_changed(type: String, active: bool):
+	match type:
+		"Double Points":
+			double_points_icon.visible = active
+		"Insta Kill":
+			insta_kill_icon.visible = active

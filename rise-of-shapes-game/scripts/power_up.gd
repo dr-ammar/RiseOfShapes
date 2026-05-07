@@ -7,6 +7,9 @@ var despawn_time: float = 15.0
 
 @onready var sprite = $Sprite
 
+var kaboom_sound = preload("res://audio/kaboom-cod-sound-effect.mp3")
+var max_ammo_sound = preload("res://audio/max-ammo-sound.mp3")
+
 func _ready():
 	# Randomly choose type
 	type = PowerUpType.values().pick_random()
@@ -43,6 +46,8 @@ func apply_effect(player):
 	match type:
 		PowerUpType.NUKE:
 			player.show_hud_message("NUKE!", 2.0)
+			get_tree().call_group("hud", "flash_screen")
+			play_sound(kaboom_sound)
 			# Kill all currently active zombies
 			var enemies = get_tree().get_nodes_in_group("enemy")
 			for enemy in enemies:
@@ -57,6 +62,7 @@ func apply_effect(player):
 			
 		PowerUpType.MAX_AMMO:
 			player.show_hud_message("MAX AMMO!", 2.0)
+			play_sound(max_ammo_sound)
 			# Refill all weapons in inventory
 			for weapon in player.weapons_inventory:
 				if is_instance_valid(weapon):
@@ -75,3 +81,11 @@ func _start_blinking():
 	var tween = create_tween().set_loops(10)
 	tween.tween_property(self, "modulate:a", 0.3, 0.25)
 	tween.tween_property(self, "modulate:a", 1.0, 0.25)
+
+func play_sound(stream: AudioStream):
+	var sfx = AudioStreamPlayer.new()
+	sfx.stream = stream
+	sfx.bus = "SFX"
+	get_tree().root.add_child(sfx)
+	sfx.play()
+	sfx.finished.connect(sfx.queue_free)

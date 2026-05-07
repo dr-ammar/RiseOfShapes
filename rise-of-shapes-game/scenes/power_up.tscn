@@ -7,8 +7,16 @@
 [ext_resource type="Texture2D" uid="uid://cvuwsbe7exnub" path="res://assets/PowerUps/Kaboom.png" id="4_6m4jj"]
 [ext_resource type="Texture2D" uid="uid://dbah3bhoovc7h" path="res://assets/PowerUps/Zombie_Cash.png" id="5_0lif3"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_powerup"]
-radius = 14.0
+[sub_resource type="Gradient" id="Gradient_l224l"]
+colors = PackedColorArray(0, 1, 0, 1, 0.02745098, 0.02745098, 0.02745098, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_p7g7m"]
+gradient = SubResource("Gradient_l224l")
+width = 5
+height = 5
+fill = 1
+fill_from = Vector2(0.4871795, 0.46438748)
+fill_to = Vector2(0.84045583, 0.17378917)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_a6us8"]
 animations = [{
@@ -62,18 +70,41 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.8632479, 0.21937323)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_powerup"]
+radius = 18.0
+
 [node name="PowerUp" type="Area2D" unique_id=1101036816]
 scale = Vector2(0.5, 0.5)
 collision_layer = 0
+collision_mask = 2
 script = ExtResource("1_script")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1671514102]
-shape = SubResource("CircleShape2D_powerup")
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=546448921]
+amount = 15
+texture = SubResource("GradientTexture2D_p7g7m")
+emission_shape = 1
+emission_sphere_radius = 17.92
+direction = Vector2(1, 1)
+gravity = Vector2(0, 0)
+orbit_velocity_max = 0.5
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1814037559]
 light_mask = 0
 sprite_frames = SubResource("SpriteFrames_a6us8")
 animation = &"Double_Points"
 
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="." unique_id=584351860]
+amount = 5
+texture = SubResource("GradientTexture2D_p7g7m")
+emission_shape = 1
+emission_sphere_radius = 15.0
+direction = Vector2(1, 1)
+gravity = Vector2(0, 0)
+orbit_velocity_min = 0.5
+orbit_velocity_max = 1.0
+
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=13088604]
 texture = SubResource("GradientTexture2D_l224l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1671514102]
+shape = SubResource("CircleShape2D_powerup")
